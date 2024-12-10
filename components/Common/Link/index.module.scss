@@ -1,0 +1,12 @@
+.link {
+  color: var(--color-accent-lighter);
+  transition: color 0.2s var(--smooth-transition);
+
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+
+  // In case it's not an <a>, but a <span>
+  cursor: pointer;
+}
