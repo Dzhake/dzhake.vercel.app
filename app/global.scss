@@ -1,0 +1,46 @@
+@import "normalize.css";
+
+:root {
+  --color-text-primary: #d1d1d1;
+  --color-text-secondary: #8a8a8a;
+
+  --color-accent-lighter: #fccb75;
+  --color-accent: #fbb946;
+  --color-accent-darker: #faa717;
+
+  --color-background-lighter: #242526;
+  --color-background: #111214;
+
+  --smooth-transition: cubic-bezier(0.08, 0.52, 0.52, 1);
+
+  --mono-font: "JetBrains Mono", "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+
+  color-scheme: dark;
+  color: var(--color-text-primary);
+  background: var(--color-background);
+  font-size: 16px;
+}
+
+html, body {
+  position: relative;
+  max-width: 100vw;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* Some useful global default styles */
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; }
+li { line-height: 1.65em; }
+ul, ol { padding-left: 2rem; }
+pre, code { font-family: var(--mono-font); }
+
+h1, h2, h3, h4, h5, h6 { scroll-margin-top: calc(var(--navbar-height) + 16px); }
