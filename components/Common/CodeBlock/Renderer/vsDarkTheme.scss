@@ -17,9 +17,7 @@
 .token.class-name { color: rgb(78, 201, 176) }
 .token.char { color: rgb(209, 105, 105) }
 
-.refractor {
-  &[class*="language-markup"], &[class*="language-svg"] {
-    .token.tag { color: rgb(86, 156, 214) }
-    .token.punctuation { color: #808080 }
-  }
+.refractor[class*="language-markup"] {
+  .token.tag { color: rgb(86, 156, 214) }
+  .token.punctuation { color: #808080 }
 }
