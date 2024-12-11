@@ -7,7 +7,7 @@ export default function HomePage() {
       <Link>{"Hello world!"}</Link>
       <br />
       <br />
-      <CodeBlock title="/project/my-markdown-file.mdx" lang="csharp">
+      <CodeBlock title="/project/my-csharp-file.cs" lang="c++">
         {csharpSample}
       </CodeBlock>
       <br />

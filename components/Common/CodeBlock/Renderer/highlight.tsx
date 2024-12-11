@@ -1,5 +1,6 @@
 import { createElement, memo, useMemo } from "react";
 import { refractor } from "refractor";
+import type { PrismLanguage } from "@lib/data/languageIconAliases";
 import normalizeTokens, { type RefractorElement, type RefractorToken } from "../utils/normalizeTokens";
 import styles from "./index.module.scss";
 import clsx from "clsx";
@@ -8,8 +9,8 @@ import "./vsDarkTheme.scss"; // TODO: turn the theme into a config of some sort
 type HTMLAttrs = React.HTMLAttributes<HTMLElement>;
 
 export interface CodeBlockHighlightRendererProps {
+  lang: PrismLanguage | (string & {});
   code: string;
-  lang: string;
   highlightLines?: number[];
   nonums?: boolean;
 }

@@ -4,24 +4,25 @@ import importHighlightLanguage from "./utils/importHighlightLanguage";
 import CodeBlockContainer from "./Container";
 import CodeBlockHighlightRenderer from "./Renderer/highlight";
 import CodeBlockPlainRenderer from "./Renderer/plain";
-import type { CodeBlockProps } from ".";
-export type { CodeBlockProps };
+import type { CodeBlockProps, PrismLanguage } from ".";
+
+export type { CodeBlockProps, LanguageOrIconAlias, PrismLanguage } from ".";
 
 export default async function CodeBlock(props: CodeBlockProps) {
   // Server CodeBlock suspends until the necessary syntax module is loaded,
   // and then renders the code as needed. (the modules are local, so it's quick)
 
-  await importHighlightLanguage(props.lang);
-  return <CodeBlockInternal {...props} />;
+  const prismLang = await importHighlightLanguage(props.lang);
+  return <CodeBlockInternal {...props} prismLang={prismLang} />;
 }
 
-function CodeBlockInternal({ lang, nonums, children, ...props }: CodeBlockProps) {
+function CodeBlockInternal({ nonums, children, prismLang, ...props }: CodeBlockProps & { prismLang?: PrismLanguage }) {
   const { code, highlightLines } = useCodeProcessor(children);
-  const Renderer = lang ? CodeBlockHighlightRenderer : CodeBlockPlainRenderer;
+  const Renderer = prismLang ? CodeBlockHighlightRenderer : CodeBlockPlainRenderer;
 
   return (
-    <CodeBlockContainer lang={lang} {...props}>
-      <Renderer lang={lang!} code={code} highlightLines={highlightLines} nonums={nonums} />
+    <CodeBlockContainer {...props}>
+      <Renderer lang={prismLang!} code={code} highlightLines={highlightLines} nonums={nonums} />
     </CodeBlockContainer>
   );
 }

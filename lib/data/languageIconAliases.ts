@@ -1,9 +1,7 @@
-export type LanguageAliases = [prism: string | undefined, seti: string, ...aliases: string[]];
-
-const languageAliases: LanguageAliases[] = [
+const languageAliasesConst = [
   ["cfg", "config", "ini"],
-  ["csharp", "c-sharp", "cs", "c#", "dotnet"],
-  ["fsharp", "f-sharp", "fs", "f#"],
+  ["csharp", "c-sharp", "cs", "dotnet"],
+  ["fsharp", "f-sharp", "fs"],
   ["c", "c", "h"],
   ["javascript", "javascript", "js"],
   ["typescript", "typescript", "ts"],
@@ -13,7 +11,7 @@ const languageAliases: LanguageAliases[] = [
   ["yaml", "yml"],
   ["markdown", "markdown", "md", "mdx"],
   [undefined, "git", "gitignore", "gitattributes"],
-  ["bash", "shell", "sh", "bash"],
+  ["bash", "shell", "sh"],
   ["powershell", "powershell", "ps", "ps1"],
   ["python", "python", "py"],
   [undefined, "editorconfig"],
@@ -32,20 +30,27 @@ const languageAliases: LanguageAliases[] = [
   ["lua", "lua"],
   ["makefile", "makefile"],
   ["php", "php"],
-  ["jsx", "react", "jsx"],
-  ["tsx", "react", "tsx"],
+  ["jsx", "react"],
+  ["tsx", "react"],
   ["rust", "rust", "rs"],
   ["json", "tsconfig"],
   ["java", "java"],
   ["latex", "tex", "katex"],
   // [undefined, "default"], // custom light-gray icon (see public/ folder)
-];
+] as const;
+
+export type PrismLanguage = Exclude<(typeof languageAliasesConst)[number][0], undefined>;
+export type SetiIcon = Exclude<(typeof languageAliasesConst)[number][1], undefined>;
+export type LanguageOrIconAlias = Exclude<(typeof languageAliasesConst)[number][number], undefined>;
+
+type LanguageAliases = [prism: string | undefined, seti: string, ...aliases: string[]];
+const languageAliases = languageAliasesConst as readonly Readonly<LanguageAliases>[];
 
 export function findPrismLanguage(name: string) {
-  return languageAliases.find(arr => arr.includes(name))?.[0];
+  return languageAliases.find(aliases => aliases.includes(name))?.[0] as PrismLanguage | undefined;
 }
 export function findSetiIcon(name: string) {
-  return languageAliases.find(arr => arr.includes(name))?.[1];
+  return languageAliases.find(aliases => aliases.includes(name))?.[1] as SetiIcon | undefined;
 }
 
 export default languageAliases;

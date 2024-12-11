@@ -1,10 +1,14 @@
+import type { LanguageOrIconAlias } from "@lib/data/languageIconAliases";
+
+export type { LanguageOrIconAlias, PrismLanguage } from "@lib/data/languageIconAliases";
+
 export interface CodeBlockProps {
-  title?: string;
-  lang?: string;
+  lang?: LanguageOrIconAlias | (string & {});
   nonums?: boolean;
-  nocopy?: boolean;
-  className?: string;
   children?: React.ReactNode;
   // ...props
+  title?: string;
+  nocopy?: boolean;
+  className?: string;
   style?: React.CSSProperties;
 }

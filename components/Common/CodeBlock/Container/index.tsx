@@ -1,10 +1,11 @@
+import type { LanguageOrIconAlias } from "@lib/data/languageIconAliases";
 import Sprite from "@components/Common/Sprite";
 import styles from "./index.module.scss";
 import clsx from "clsx";
 
 export interface CodeBlockContainerProps {
+  lang?: LanguageOrIconAlias | (string & {});
   title?: string;
-  lang?: string;
   nocopy?: boolean;
   className?: string;
   children?: React.ReactNode;
