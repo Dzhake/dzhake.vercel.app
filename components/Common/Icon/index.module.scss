@@ -1,0 +1,27 @@
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  outline: none;
+  transition: opacity 0.2s;
+  max-width: none !important;
+  margin-bottom: 0 !important;
+
+  width: 32px;
+  height: 32px;
+  background-image: url("/assets/icons/common.png");
+  background-size: 800% 800%;
+  image-rendering: pixelated;
+}
+
+button > .icon {
+  opacity: 0.5;
+  transition: opacity 0.2s, scale 0.1s;
+}
+button:is(:hover, :focus-visible) > .icon {
+  opacity: 1;
+}
+button:active > .icon {
+  scale: 1.1;
+  transition: opacity 0.2s;
+}

@@ -15,6 +15,7 @@ module.exports = {
     "unused-imports/no-unused-imports": "warn",
 
     "no-empty": "off", // annoying when writing new code
+    "prefer-const": "warn", // prefer const when variable is not reassigned
     "react-hooks/exhaustive-deps": "off", // the amount of extra dependencies is excessive
     "@next/next/no-img-element": "off", // not useful at the moment
     "@typescript-eslint/method-signature-style": ["warn", "property"],
