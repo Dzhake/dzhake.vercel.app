@@ -1,5 +1,6 @@
 .container {
-  border: 2px solid var(--color-background-lighter);
+  position: relative;
+  border: 2px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -9,7 +10,7 @@
   align-items: center;
 
   padding: 4px 8px;
-  border-bottom: 1px solid var(--color-background-lighter);
+  border-bottom: 1px solid var(--color-border);
   color: var(--color-text-secondary);
   font-family: var(--mono-font);
   font-size: 13px;
@@ -19,8 +20,4 @@
   width: 24px;
   height: 24px;
   margin-right: 4px;
-}
-
-.wrapper {
-  position: relative;
 }

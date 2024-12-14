@@ -1,5 +1,6 @@
 import type { LanguageOrIconAlias } from "@lib/data/languageIconAliases";
 import Sprite from "@components/Common/Sprite";
+import CodeBlockCopyButton from "../CopyButton";
 import styles from "./index.module.scss";
 import clsx from "clsx";
 
@@ -27,10 +28,11 @@ export default function CodeBlockContainer({
         <div className={styles.header}>
           <Sprite className={styles.fileIcon} src={`/assets/icons/seti/${lang ?? "default"}.svg`} />
           {title}
+          {!nocopy && <CodeBlockCopyButton />}
         </div>
       )}
-      <div className={styles.wrapper}>{children}</div>
-      {/* TODO: Copy button */}
+      {!title && !nocopy && <CodeBlockCopyButton float />}
+      {children}
     </div>
   );
 }

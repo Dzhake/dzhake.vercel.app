@@ -7,9 +7,12 @@ export default function HomePage() {
       <Link>{"Hello world!"}</Link>
       <br />
       <br />
-      <CodeBlock title="/project/my-csharp-file.cs" lang="c++">
+      <CodeBlock title="/project/my-csharp-file.cs" lang="csharp">
         {csharpSample}
       </CodeBlock>
+      <br />
+      <br />
+      <CodeBlock lang="svg">{svgSample}</CodeBlock>
       <br />
       <br />
       <CodeBlock title="/project/my-svg-file.svg" lang="svg">
