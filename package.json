@@ -6,13 +6,16 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gen-types": "supabase gen types --lang=typescript --project-id \"dvelmgfskayztafzayql\" --schema public > supabase/generated-types.ts && next lint --dir supabase --file supabase/generated-types.ts --fix"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.7",
     "clsx": "^2.1.1",
     "immer": "^10.1.1",
     "nanoid": "^5.0.9",
-    "next": "15.0.4-canary.48",
+    "next": "15.1.0",
     "normalize.css": "^8.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -20,15 +23,16 @@
     "server-only": "^0.0.1"
   },
   "devDependencies": {
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "eslint": "^8.57.1",
-    "eslint-config-next": "^15.0.4",
+    "eslint-config-next": "^15.1.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-unused-imports": "^3.2.0",
     "prettier": "^3.4.2",
+    "supabase": "^2.0.0",
     "typescript": "^5.7.2",
     "typescript-plugin-css-modules": "^5.1.0"
   },

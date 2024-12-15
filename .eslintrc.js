@@ -20,5 +20,7 @@ module.exports = {
     "@next/next/no-img-element": "off", // not useful at the moment
     "@typescript-eslint/method-signature-style": ["warn", "property"],
     "@typescript-eslint/array-type": "warn", // prefer T[] over Array<T>
+    "@typescript-eslint/no-empty-object-type": ["warn", { allowInterfaces: "with-single-extends" }],
+    // interfaces allow to reduce huge mapped types to just an interface name in IDE tooltips
   },
 };

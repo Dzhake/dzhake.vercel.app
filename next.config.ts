@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       static: 300,
     },
   },
+  eslint: {
+    dirs: ["app", "components", "lib"],
+  },
 
   rewrites: async () => [],
 };
