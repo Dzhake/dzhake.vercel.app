@@ -3,7 +3,7 @@ import CodeBlock from "@components/Common/CodeBlock/server";
 
 export default function HomePage() {
   return (
-    <div style={{ maxWidth: 600, margin: "4rem auto" }}>
+    <div style={{ maxWidth: 600, margin: "2rem auto 4rem" }}>
       <Link>{"Hello world!"}</Link>
       <br />
       <br />

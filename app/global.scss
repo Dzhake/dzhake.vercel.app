@@ -14,6 +14,8 @@
   --color-border-lighter: #313234;
   --color-border: #272829;
 
+  --navbar-height: 64px;
+
   --smooth-transition: cubic-bezier(0.08, 0.52, 0.52, 1);
 
   --mono-font: "JetBrains Mono", "Cascadia Mono", "Segoe UI Mono",
@@ -30,7 +32,6 @@ html, body {
   position: relative;
   max-width: 100vw;
   min-height: 100%;
-  overflow-x: hidden;
 }
 * {
   box-sizing: border-box;
