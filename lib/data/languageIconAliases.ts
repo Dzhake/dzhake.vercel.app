@@ -1,4 +1,4 @@
-const languageAliasesConst = [
+const languageIconAliasesConst = [
   ["cfg", "config", "ini"],
   ["csharp", "c-sharp", "cs", "dotnet"],
   ["fsharp", "f-sharp", "fs"],
@@ -7,7 +7,7 @@ const languageAliasesConst = [
   ["typescript", "typescript", "ts"],
   ["markup", "xml", "csproj", "props", "targets"],
   ["markup", "html"],
-  ["markup", "svg"], // custom purplish icon (see public/ folder)
+  ["markup", "svg"], // Custom purplish icon (see public/ folder)
   ["yaml", "yml"],
   ["markdown", "markdown", "md", "mdx"],
   [undefined, "git", "gitignore", "gitattributes"],
@@ -21,7 +21,7 @@ const languageAliasesConst = [
   ["csv", "csv"],
   [undefined, "docker"],
   [undefined, "eslint"],
-  ["go", "go2"], // prefer "GO" logo over Gopher mascot
+  ["go", "go2"], // Prefer "GO" logo over Gopher mascot
   [undefined, "hex"],
   ["json", "json"],
   ["kotlin", "kotlin", "kt", "ks"],
@@ -36,21 +36,21 @@ const languageAliasesConst = [
   ["json", "tsconfig"],
   ["java", "java"],
   ["latex", "tex", "katex"],
-  // [undefined, "default"], // custom light-gray icon (see public/ folder)
+  // [undefined, "default"], // Custom light-gray icon (see public/ folder)
 ] as const;
 
-export type PrismLanguage = Exclude<(typeof languageAliasesConst)[number][0], undefined>;
-export type SetiIcon = Exclude<(typeof languageAliasesConst)[number][1], undefined>;
-export type LanguageOrIconAlias = Exclude<(typeof languageAliasesConst)[number][number], undefined>;
+export type PrismLanguage = Exclude<(typeof languageIconAliasesConst)[number][0], undefined>;
+export type SetiIcon = Exclude<(typeof languageIconAliasesConst)[number][1], undefined>;
+export type LanguageOrIconAlias = Exclude<(typeof languageIconAliasesConst)[number][number], undefined>;
 
-type LanguageAliases = [prism: string | undefined, seti: string, ...aliases: string[]];
-const languageAliases = languageAliasesConst as readonly Readonly<LanguageAliases>[];
+type LanguageIconAliases = [prism: string | undefined, seti: string, ...aliases: string[]];
+const languageIconAliases = languageIconAliasesConst as readonly Readonly<LanguageIconAliases>[];
 
 export function findPrismLanguage(name: string) {
-  return languageAliases.find(aliases => aliases.includes(name))?.[0] as PrismLanguage | undefined;
+  return languageIconAliases.find(aliases => aliases.includes(name))?.[0] as PrismLanguage | undefined;
 }
 export function findSetiIcon(name: string) {
-  return languageAliases.find(aliases => aliases.includes(name))?.[1] as SetiIcon | undefined;
+  return languageIconAliases.find(aliases => aliases.includes(name))?.[1] as SetiIcon | undefined;
 }
 
-export default languageAliases;
+export default languageIconAliases;

@@ -8,9 +8,8 @@ export default function CodeBlockCopyButton({ float }: { float?: boolean }) {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const copyContents = () => {
-    const parent = buttonRef.current!.parentElement!;
-    const pre = parent.querySelector("pre") || parent.parentElement?.querySelector("pre");
-    const content = pre?.textContent;
+    const pre = buttonRef.current!.closest("[role=panel]")!.querySelector("pre")!;
+    const content = pre.textContent;
     if (content) navigator.clipboard.writeText(content);
   };
 

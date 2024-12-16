@@ -9,8 +9,10 @@ import type { CodeBlockProps, PrismLanguage } from ".";
 export type { CodeBlockProps, LanguageOrIconAlias, PrismLanguage } from ".";
 
 export default async function CodeBlock(props: CodeBlockProps) {
-  // Server CodeBlock suspends until the necessary syntax module is loaded,
-  // and then renders the code as needed. (the modules are local, so it's quick)
+  /**
+   * Server CodeBlock suspends until the necessary syntax module is loaded,
+   * and then renders the code as needed. (the modules are local, so it's quick)
+   */
 
   const prismLang = await importHighlightLanguage(props.lang);
   return <CodeBlockInternal {...props} prismLang={prismLang} />;

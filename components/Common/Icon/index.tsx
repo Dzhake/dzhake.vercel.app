@@ -31,7 +31,7 @@ export default function Icon({ type, alt, className, width, height, size, style,
 
 // https://stackoverflow.com/a/15960901 (35 bytes, spec-compliant GIF)
 const tiniestEmptyGif = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEAAAAALAAAAAABAAEAAAIBAAA=";
-// comment under https://stackoverflow.com/a/14115340 (22 bytes, but maybe browser-specific)
+// Comment under https://stackoverflow.com/a/14115340 (22 bytes, but maybe browser-specific)
 // const tiniestEmptyGif = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAA";
 
 function getIconPosition(type: IconType) {
