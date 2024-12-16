@@ -22,5 +22,6 @@ module.exports = {
     "@typescript-eslint/array-type": "warn", // prefer T[] over Array<T>
     "@typescript-eslint/no-empty-object-type": ["warn", { allowInterfaces: "with-single-extends" }],
     // interfaces allow to reduce huge mapped types to just an interface name in IDE tooltips
+    "@typescript-eslint/no-unused-expressions": ["warn", { allowShortCircuit: true, allowTernary: true }],
   },
 };
