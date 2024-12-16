@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "@components/Common/Link";
 import styles from "./layout.module.scss";
 import { createServerSupabase } from "@lib/database/server";
@@ -50,3 +51,34 @@ async function SupabaseAuth({ children }: React.PropsWithChildren) {
 
   return <SupabaseProvider initialSession={session}>{children}</SupabaseProvider>;
 }
+
+const title = "chsm.dev";
+const description = "A website for a bunch of useless stuff.";
+
+export const metadata: Metadata = {
+  title: {
+    template: `%s | ${title}`,
+    default: `UNTITLED | ${title}`,
+  },
+  description,
+  generator: "Next.js",
+  applicationName: title,
+  keywords: [],
+  authors: [{ name: "Chasmical", url: "/user/Chasmical" }],
+  creator: "Chasmical",
+  formatDetection: { email: false, address: false, telephone: false },
+
+  openGraph: {
+    type: "website",
+    title,
+    description,
+    locale: "en",
+    images: [],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [],
+  },
+};
