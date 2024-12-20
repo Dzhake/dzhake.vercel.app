@@ -8,4 +8,9 @@ declare global {
       readonly SUPABASE_SERVICE_KEY?: string;
     }
   }
+
+  declare module "*.mdx" {
+    const content: string;
+    export default content;
+  }
 }
