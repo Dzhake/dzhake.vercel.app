@@ -3,8 +3,9 @@ import extractHighlightDirectives from "./extractHighlightDirectives";
 
 function stringifyChildren(children: React.ReactNode, results: string[] = []) {
   Children.forEach(children, child => {
-    if ((child as React.ReactElement).type === "code") {
-      stringifyChildren((child as React.ReactElement<React.PropsWithChildren>).props.children, results);
+    const elem = child as React.ReactElement<React.PropsWithChildren>;
+    if (elem?.props?.children != null) {
+      stringifyChildren(elem.props.children, results);
     } else {
       results.push(...("" + (child || "")).split("\n"));
     }
