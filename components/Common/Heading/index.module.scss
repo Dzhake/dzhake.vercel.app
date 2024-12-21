@@ -1,0 +1,16 @@
+.heading {
+  color: var(--color-text-primary);
+  transition: color 0.2s var(--smooth-transition);
+
+  &:hover {
+    color: var(--color-accent-lighter);
+    .icon { opacity: 1; }
+  }
+}
+
+.icon {
+  opacity: 0;
+  transition: opacity 0.2s var(--smooth-transition);
+  margin-left: 10px;
+  user-select: none;
+}
