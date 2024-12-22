@@ -35,7 +35,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
           </div>
           <div>
             <h4>{"Tools and utilities"}</h4>
-            <Link href="/component-demo">{"Component demo"}</Link>
+            <Link href="/markdown">{"Markdown demo"}</Link>
           </div>
         </div>
       </footer>
@@ -53,7 +53,7 @@ async function SupabaseAuth({ children }: React.PropsWithChildren) {
 }
 
 const title = "chsm.dev";
-const description = "A website for a bunch of useless stuff.";
+const description = "A personal website for a bunch of stupid stuff";
 
 export const metadata: Metadata = {
   title: {
