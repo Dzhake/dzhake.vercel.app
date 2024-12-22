@@ -2,6 +2,7 @@ import type { MdxOptions } from "@lib/mdx";
 // Remark plugins
 import remarkGfm from "remark-gfm";
 import remarkHeadingId from "remark-custom-heading-id";
+import remarkTocHeadings, { RemarkTocHeadingsOptions } from "./plugins/remark-toc-headings";
 import remarkDirective from "remark-directive";
 import remarkBreaks from "remark-breaks";
 import remarkMath from "remark-math";
@@ -14,12 +15,14 @@ import rehypeOverrideJsx from "./plugins/rehype-override-jsx";
 import rehypeCodeMeta from "./plugins/rehype-code-meta";
 
 export default function configurePlugins(_config?: unknown) {
+  const tocOptions: RemarkTocHeadingsOptions = {};
   const analysisOptions: RemarkAnalyzeOptions = {};
 
   const options: Pick<MdxOptions, "remarkPlugins" | "rehypePlugins"> = {
     remarkPlugins: [
       [remarkGfm, { singleTilde: false }],
       remarkHeadingId,
+      [remarkTocHeadings, tocOptions],
       remarkDirective,
       remarkBreaks,
       [remarkMath, { singleDollarTextMath: false }],
@@ -35,6 +38,7 @@ export default function configurePlugins(_config?: unknown) {
   };
 
   // const analysis = analysisOptions.data!;
+  // const toc = tocOptions.data!;
 
   return options;
 }
