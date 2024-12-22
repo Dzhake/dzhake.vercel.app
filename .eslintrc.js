@@ -23,5 +23,8 @@ module.exports = {
     "@typescript-eslint/no-empty-object-type": ["warn", { allowInterfaces: "with-single-extends" }],
     // interfaces allow to reduce huge mapped types to just an interface name in IDE tooltips
     "@typescript-eslint/no-unused-expressions": ["warn", { allowShortCircuit: true, allowTernary: true }],
+    "@typescript-eslint/no-explicit-any": "warn",
   },
+  // enable linting in /app/api/.private/ directory
+  ignorePatterns: ["!/app/api/.private"],
 };
