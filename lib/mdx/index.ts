@@ -14,6 +14,7 @@ export interface MdxOptions {
   remarkPlugins: PluggableList;
   scope?: Record<string, unknown>;
   components?: MDXComponents;
+  extraOutputComponents?: React.FunctionComponent[];
 }
 
 export interface MdxResult<FM> {
@@ -36,7 +37,12 @@ export async function compileMdx<FM>(markdown: VFileCompatible, options: MdxOpti
 
   const source = String(await compile(vfile, compileOptions));
   const { default: Content } = await compileMdxModule(source, { ...options.scope, frontmatter });
-  const content = React.createElement(Content, { components: options.components });
+  let content: React.ReactNode = React.createElement(Content, { components: options.components });
+
+  if (options.extraOutputComponents) {
+    const extra = options.extraOutputComponents.map(component => React.createElement(component));
+    content = React.createElement(React.Fragment, undefined, content, ...extra);
+  }
 
   return { frontmatter, source, content };
 }

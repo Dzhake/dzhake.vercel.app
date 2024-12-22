@@ -13,12 +13,14 @@ import remarkAnalyze, { RemarkAnalyzeOptions } from "./plugins/remark-analyze";
 import rehypeKatex from "./plugins/rehype-katex";
 import rehypeOverrideJsx from "./plugins/rehype-override-jsx";
 import rehypeCodeMeta from "./plugins/rehype-code-meta";
+// Miscellaneous stuff
+import KatexCopyHandler from "@lib/mdx/misc/KatexCopyHandler";
 
 export default function configurePlugins(_config?: unknown) {
   const tocOptions: RemarkTocHeadingsOptions = {};
   const analysisOptions: RemarkAnalyzeOptions = {};
 
-  const options: Pick<MdxOptions, "remarkPlugins" | "rehypePlugins"> = {
+  const options: Pick<MdxOptions, "remarkPlugins" | "rehypePlugins" | "extraOutputComponents"> = {
     remarkPlugins: [
       [remarkGfm, { singleTilde: false }],
       remarkHeadingId,
@@ -35,6 +37,7 @@ export default function configurePlugins(_config?: unknown) {
       [rehypeOverrideJsx, {}],
       [rehypeCodeMeta, {}],
     ],
+    extraOutputComponents: [KatexCopyHandler],
   };
 
   // const analysis = analysisOptions.data!;
