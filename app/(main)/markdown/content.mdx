@@ -1,0 +1,86 @@
+---
+title: Markdown Demo
+description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+---
+
+## Basic markdown
+
+The website supports basic [Markdown](https://commonmark.org/help/) features and more!
+
+> [*The Thing*](https://en.wikipedia.org/wiki/The_Thing_(1982_film)) can not be described—there is **[no language](https://en.wikipedia.org/wiki/No_language)** for such ***abysms of shrieking and immemorial lunacy***, such eldritch contradictions of [all matter](https://en.wikipedia.org/wiki/All_Matter), force, and cosmic order... *The stars were right again*, and what an **age-old cult** had failed to do by design, a band of innocent sailors had done ***by accident***.
+
+
+
+## GitHub Flavored markdown
+
+[`remark-gfm`](https://github.com/remarkjs/remark-gfm) / https://github.github.com/gfm/
+
+| Project name  | Version       | Downloads  |
+|---------------|:--------------|-----------:|
+| RogueLibs     | v4.0.0-rc.2   | 37         |
+| RogueLibs     | v4.0.0-rc.1   | 1,600      |
+| RogueLibs     | v4.0.0-beta.X | 269        |
+| RogueLibs     | v3.6.9        | 3,400      |
+
+- [ ] ~~Do something productive.~~
+- [x] Markdown setup with lots of cool features.
+- [ ] Something that uses this cool markdown.
+
+
+
+## Code blocks
+
+The website provides its own customized code blocks: with language icons ([`seti-ui`](https://github.com/jesseweed/seti-ui)), file names, line numbers, copy buttons, and syntax highlighting ([`refractor`](https://github.com/wooorm/refractor) / [Prism.js](https://prismjs.com)).
+
+```svg title="~/source/repos/icons/link.svg"
+<svg viewBox="0 0 128 128" height="0.7em" width="0.7em"><path fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" d="M72,56 L72,56c11,11,11,29,0,40l-16,16c-11,11-29,11-40,0l0,0c-11-11-11-29,0-40 l14-14 M56,72 L56,72c-11-11-11-29,0-40l16-16c11-11,29-11,40,0l0,0c11,11,11,29,0,40 l-14,14"/></svg>
+```
+
+The copy button and line numbers can both be removed by specifying `nocopy` and `nonums` options. You can also choose to highlight certain lines with `// highlight` directives in code.
+
+```csharp title="/Solution/Project/Class.cs" nocopy nonums
+using System; // highlight this
+
+namespace Project
+{
+    // highlight next
+    public sealed class Class : System.Object { }
+}
+```
+
+
+
+## KaTeX math
+
+The markdown here uses [`remark-math` and `rehype-katex`](https://github.com/remarkjs/remark-math) plugins to render math expressions with [$$\KaTeX$$](https://katex.org). They can be rendered inline: $$ \vec{v}=(m\vec{g} - \rho \vec{g}V) t $$, or in block form:
+
+$$
+f(x) = \int_{-\infty}^\infty
+  \hat{f}(\xi)\,e^{2 \pi i \xi x}
+  \,d\xi
+$$
+
+
+
+## Emojis
+
+Regular emojis are converted into [Twemoji](https://github.com/twitter/twemoji) emojis. They can also be inserted using GitHub's `:emoji-name:` syntax, and `\`-escaped if you want to make rendering platform-specific.
+
+<span style={{ fontSize: "2rem" }} title="Increased size for better viewing">
+🤔 :tada: :thinking: \🤔
+</span>
+
+
+
+## Inline CSS colors
+
+CSS colors have a color box next to them: `#ff0000`, `#00ff00`, `#0000ff`.
+Color functions work as well!: `rgb(175, 23, 187)` `hsl(360 88% 36%/0.5)`.
+
+
+
+## Directives
+
+TODO
+
+
