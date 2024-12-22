@@ -2,15 +2,8 @@
   --block-margin-bottom: 1.25rem;
 
   h1 { font-size: 3rem; }
-  h2 { font-size: 2rem; margin-top: calc(var(--block-margin-bottom) * 1.6); }
-  h3 { font-size: 1.5rem; margin-top: calc(var(--block-margin-bottom) * 1.2); }
-
-  p { line-height: 1.5em; }
-
-  blockquote {
-    border-left: 4px solid var(--color-border-lighter);
-    padding: 0.25rem 1rem;
-  }
+  h2 { font-size: 2rem; margin-top: calc(var(--block-margin-bottom) * 2); }
+  h3 { font-size: 1.5rem; margin-top: calc(var(--block-margin-bottom) * 1.6); }
 }
 
 :is(.markdown, .markdown [role=tabpanel], .markdown [role=panel]) {
