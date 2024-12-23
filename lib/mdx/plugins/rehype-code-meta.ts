@@ -1,5 +1,5 @@
 import type { Transformer } from "unified";
-import type { Element } from "hast";
+import type { Element, Nodes } from "hast";
 import { visit } from "unist-util-visit";
 
 /**
@@ -7,11 +7,11 @@ import { visit } from "unist-util-visit";
  *
  * Used to pass the `lang` property and other options to custom code block components.
  */
-export default function rehypeCodeMeta(_options?: unknown): Transformer {
+export default function rehypeCodeMeta(_options?: unknown): Transformer<Nodes> {
   return tree => {
-    visit(tree, "element", (codeNode: Element, _index: number, preNode?: Element) => {
+    visit(tree, "element", (codeNode: Element, _index?: number, preNode?) => {
       // Select <pre> nodes with a <code> child
-      if (codeNode.tagName !== "code" || preNode?.tagName !== "pre") return;
+      if (codeNode.tagName !== "code" || preNode?.type !== "element" || preNode.tagName !== "pre") return;
 
       // Parse the metadata and assign it to properties
       Object.assign((preNode.properties ??= {}), parseMeta(codeNode.data?.meta as string | undefined));

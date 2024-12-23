@@ -1,4 +1,5 @@
 import type { Transformer } from "unified";
+import type { Nodes } from "mdast";
 import type { MdxJsxFlowElement } from "mdast-util-mdx-jsx";
 import { visit } from "unist-util-visit";
 
@@ -23,7 +24,7 @@ export interface RemarkAnalyzeOptions {
  * - https://github.com/vercel/next.js/discussions/69563
  * - https://github.com/vercel/next.js/discussions/69594
  */
-export default function remarkAnalyze(options: RemarkAnalyzeOptions): Transformer {
+export default function remarkAnalyze(options: RemarkAnalyzeOptions): Transformer<Nodes> {
   options.data = { usesCode: false, usesMath: false, usesComponents: [] };
   const data = options.data;
 

@@ -1,5 +1,5 @@
 import type { Transformer } from "unified";
-import type { Heading as MdastHeading, HeadingData as MdastHeadingData } from "mdast";
+import type { Heading as MdastHeading, HeadingData as MdastHeadingData, Nodes } from "mdast";
 import { visit } from "unist-util-visit";
 import { toString } from "mdast-util-to-string";
 import sluggify from "@lib/utils/sluggify";
@@ -27,7 +27,7 @@ interface Heading extends MdastHeading {
 /**
  * Collects heading data for the table of contents, and generates ids for headings that are missing ids.
  */
-export default function remarkTocHeadings(options: RemarkTocHeadingsOptions): Transformer {
+export default function remarkTocHeadings(options: RemarkTocHeadingsOptions): Transformer<Nodes> {
   const autoId = options.autoId ?? true;
   options.data = { tree: [], flat: [] };
   const data = options.data;

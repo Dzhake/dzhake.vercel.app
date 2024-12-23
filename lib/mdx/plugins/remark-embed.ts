@@ -1,5 +1,5 @@
 import type { Transformer } from "unified";
-import type { Node, Paragraph } from "mdast";
+import type { Node, Nodes, Paragraph } from "mdast";
 import { visit } from "unist-util-visit";
 import transformIntoMdxJsx from "../misc/transformIntoMdxJsx";
 import { oEmbedConfig as oEmbedConfigBase, oEmbedProvider, getOEmbed } from "@lib/oembed";
@@ -14,7 +14,7 @@ export interface RemarkEmbedOptions {
   size?: [width: number, height: number];
 }
 
-export default function remarkEmbed(options: RemarkEmbedOptions = {}): Transformer {
+export default function remarkEmbed(options: RemarkEmbedOptions = {}): Transformer<Nodes> {
   const defaultComponentName = options.componentName ?? "Embed";
 
   const fetchProviders = typeof window === "undefined" ? fetchProvidersServer : fetchProvidersClient;

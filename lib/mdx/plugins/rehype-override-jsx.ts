@@ -1,4 +1,5 @@
 import type { Transformer } from "unified";
+import type { Nodes } from "hast";
 import { visit } from "unist-util-visit";
 
 /**
@@ -8,7 +9,7 @@ import { visit } from "unist-util-visit";
  *
  * https://github.com/mdx-js/mdx/pull/2052#issuecomment-1140519087
  */
-export default function rehypeOverrideJsx(_options?: unknown): Transformer {
+export default function rehypeOverrideJsx(_options?: unknown): Transformer<Nodes> {
   return tree => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     visit(tree, (node: any) => void delete node.data?._mdxExplicitJsx);
