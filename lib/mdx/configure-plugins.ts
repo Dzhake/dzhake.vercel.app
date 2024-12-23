@@ -8,6 +8,7 @@ import remarkBreaks from "remark-breaks";
 import remarkMath from "remark-math";
 import remarkInlineCssColor from "./plugins/remark-inline-css-color";
 import remarkEmoji from "./plugins/remark-emoji";
+import remarkEmbed, { RemarkEmbedOptions } from "@lib/mdx/plugins/remark-embed";
 import remarkAnalyze, { RemarkAnalyzeOptions } from "./plugins/remark-analyze";
 // Rehype plugins
 import rehypeKatex from "./plugins/rehype-katex";
@@ -16,9 +17,16 @@ import rehypeCodeMeta from "./plugins/rehype-code-meta";
 // Miscellaneous stuff
 import KatexCopyHandler from "@lib/mdx/misc/KatexCopyHandler";
 
-export default function configurePlugins(_config?: unknown) {
+export interface MdxPluginConfigs {
+  toc?: RemarkTocHeadingsOptions["data"];
+  analysis?: RemarkAnalyzeOptions["data"];
+  embedSize?: [width: number, height: number];
+}
+
+export default function configurePlugins(config: MdxPluginConfigs = {}) {
   const tocOptions: RemarkTocHeadingsOptions = {};
   const analysisOptions: RemarkAnalyzeOptions = {};
+  const embedOptions: RemarkEmbedOptions = { size: config?.embedSize };
 
   const options: Pick<MdxOptions, "remarkPlugins" | "rehypePlugins" | "extraOutputComponents"> = {
     remarkPlugins: [
@@ -30,6 +38,7 @@ export default function configurePlugins(_config?: unknown) {
       [remarkMath, { singleDollarTextMath: false }],
       [remarkInlineCssColor, {}],
       [remarkEmoji, {}],
+      [remarkEmbed, embedOptions],
       [remarkAnalyze, analysisOptions],
     ],
     rehypePlugins: [
@@ -40,8 +49,8 @@ export default function configurePlugins(_config?: unknown) {
     extraOutputComponents: [KatexCopyHandler],
   };
 
-  // const analysis = analysisOptions.data!;
-  // const toc = tocOptions.data!;
+  config.toc = tocOptions.data!;
+  config.analysis = analysisOptions.data!;
 
   return options;
 }

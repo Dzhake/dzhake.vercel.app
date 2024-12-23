@@ -2,8 +2,9 @@ import type { MdxOptions } from "@lib/mdx";
 import Link from "@components/Common/Link";
 import Code from "@components/Common/Code";
 import CodeBlock from "@components/Common/CodeBlock/server";
-import InlineCssColor from "@components/Specialized/InlineCssColor";
 import Heading, { HeadingProps } from "@components/Common/Heading";
+import InlineCssColor from "@components/Specialized/InlineCssColor";
+import Embed from "@components/Specialized/Embed";
 
 function makeHeading(depth: 1 | 2 | 3 | 4 | 5 | 6) {
   // eslint-disable-next-line react/display-name
@@ -24,5 +25,6 @@ export default function configureComponents(_config?: unknown): MdxOptions["comp
     h5: makeHeading(5),
     h6: makeHeading(6),
     InlineCssColor,
+    Embed,
   };
 }

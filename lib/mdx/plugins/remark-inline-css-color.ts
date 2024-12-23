@@ -1,6 +1,7 @@
 import type { Transformer } from "unified";
 import type { InlineCode } from "mdast";
 import { visit } from "unist-util-visit";
+import transformIntoMdxJsx from "@lib/mdx/misc/transformIntoMdxJsx";
 
 /**
  * Converts inline code nodes containing CSS colors into <InlineCssColor> JSX nodes.
@@ -9,12 +10,7 @@ export default function remarkInlineCssColor(_options?: unknown): Transformer {
   return tree => {
     visit(tree, "inlineCode", (node: InlineCode) => {
       if (!ColorRegex.test(node.value)) return;
-
-      Object.assign(node, {
-        type: "mdxJsxFlowElement",
-        name: "InlineCssColor",
-        attributes: [{ type: "mdxJsxAttribute", name: "color", value: node.value }],
-      });
+      transformIntoMdxJsx(node, "InlineCssColor", { color: node.value });
     });
   };
 }

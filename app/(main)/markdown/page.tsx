@@ -7,7 +7,7 @@ import { markdownClass } from "@components/Specialized/MarkdownWrapper";
 export default async function AboutPage() {
   const { content } = await compileMdx(markdown, {
     format: "mdx",
-    ...configurePlugins(),
+    ...configurePlugins({ embedSize: [480, 270] }),
     components: configureComponents(),
   });
 
