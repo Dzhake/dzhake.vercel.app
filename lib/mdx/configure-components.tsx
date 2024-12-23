@@ -5,6 +5,7 @@ import CodeBlock from "@components/Common/CodeBlock/server";
 import Heading, { HeadingProps } from "@components/Common/Heading";
 import InlineCssColor from "@components/Specialized/InlineCssColor";
 import Embed from "@components/Specialized/Embed";
+import Icon from "@components/Common/Icon";
 
 function makeHeading(depth: 1 | 2 | 3 | 4 | 5 | 6) {
   // eslint-disable-next-line react/display-name
@@ -26,5 +27,7 @@ export default function configureComponents(_config?: unknown): MdxOptions["comp
     h6: makeHeading(6),
     InlineCssColor,
     Embed,
+    Icon,
+    Admonition: "div", // TODO: add an Admonition component
   };
 }

@@ -2,7 +2,7 @@ import type { Node } from "mdast";
 import type { MdxJsxFlowElement } from "mdast-util-mdx-jsx";
 
 /**
- * Creates (or transforms an existing) node to a MDX JSX component.
+ * Creates (or transforms an existing) node to an MDX JSX component.
  */
 export default function transformIntoMdxJsx(
   node: Node | null | undefined,
@@ -13,12 +13,14 @@ export default function transformIntoMdxJsx(
 
   mdxJsx.type = "mdxJsxFlowElement";
   mdxJsx.name = componentName;
-  mdxJsx.attributes = attributes ? Object.entries(attributes).map(mapAttribute) : [];
+
+  // Transform node's attributes and provided attributes into MDX JSX attributes
+  const attrObj = Object.assign((mdxJsx.attributes as unknown) ?? {}, attributes);
+  mdxJsx.attributes = Object.entries(attrObj).map(([name, value]) => ({ type: "mdxJsxAttribute", name, value }));
+
+  // Remove all the node's children; MDX JSX components probably don't need them,
+  // unless they're directives, in which case it's handled in the directives plugin.
   mdxJsx.children = [];
 
   return mdxJsx;
-}
-
-function mapAttribute([name, value]: [name: string, value: string]) {
-  return { type: "mdxJsxAttribute" as const, name, value };
 }
