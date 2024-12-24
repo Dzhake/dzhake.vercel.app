@@ -1,6 +1,6 @@
 .heading {
   color: var(--color-text-primary);
-  transition: color 0.2s var(--smooth-transition);
+  transition: color 0.2s;
 
   &:hover {
     color: var(--color-accent-lighter);
@@ -10,7 +10,7 @@
 
 .icon {
   opacity: 0;
-  transition: opacity 0.2s var(--smooth-transition);
+  transition: opacity 0.2s;
   margin-left: 10px;
   user-select: none;
 }

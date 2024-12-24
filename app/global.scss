@@ -17,7 +17,8 @@
 
   --navbar-height: 64px;
 
-  --smooth-transition: cubic-bezier(0.08, 0.52, 0.52, 1);
+  /* Easing function for quickly moving something from one place to another */
+  --smooth-snap-movement: cubic-bezier(0.08, 0.52, 0.52, 1);
 
   --mono-font: "JetBrains Mono NL", "JetBrains Mono", "Cascadia Mono", "Segoe UI Mono",
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono",
