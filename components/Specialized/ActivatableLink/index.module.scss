@@ -1,0 +1,8 @@
+.link {
+  color: inherit;
+  transition: color 0.2s var(--smooth-transition);
+  text-decoration: none;
+}
+.active, .link:hover {
+  color: var(--color-accent);
+}

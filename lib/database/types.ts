@@ -12,6 +12,7 @@ export type DbLanguage = Tables<"languages">;
 export type DbBlogPost = Tables<"blog_posts">;
 export type DbBlogPostAuthor = Tables<"blog_post_authors">;
 
-export interface DbBlogPostWithAuthors extends DbBlogPost {
+export type DbBlogPostWithAuthors = DbBlogPost & {
   authors: (DbBlogPostAuthor & { user: DbUser | null })[];
-}
+};
+export type DbBlogPostShallow = Pick<DbBlogPost, "id" | "created_at" | "title" | "slug">;

@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 1320px;
+  margin: 2rem auto 2rem;
+}
+.colSidebar {
+  flex: 0 1 23%;
+  max-width: 23%;
+}
+.colContent {
+  flex: 0 0 60%;
+  max-width: 60%;
+  padding: 0 2rem;
+}
+.colToc {
+  flex: 0 0 17%;
+  max-width: 17%;
+}
