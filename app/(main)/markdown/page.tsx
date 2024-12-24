@@ -12,7 +12,7 @@ export default async function AboutPage() {
   });
 
   return (
-    <div className={markdownClass} style={{ maxWidth: 700, margin: "2rem auto 4rem" }}>
+    <div className={markdownClass} style={{ maxWidth: "60vw", margin: "2rem auto 4rem" }}>
       {content}
     </div>
   );
