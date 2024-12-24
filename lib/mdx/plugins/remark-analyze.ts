@@ -25,7 +25,7 @@ export interface RemarkAnalyzeOptions {
  * - https://github.com/vercel/next.js/discussions/69594
  */
 export default function remarkAnalyze(options: RemarkAnalyzeOptions): Transformer<Nodes> {
-  options.data = { usesCode: false, usesMath: false, usesComponents: [] };
+  options.data ??= { usesCode: false, usesMath: false, usesComponents: [] };
   const data = options.data;
 
   return tree => {

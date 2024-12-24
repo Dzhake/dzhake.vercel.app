@@ -29,7 +29,7 @@ interface Heading extends MdastHeading {
  */
 export default function remarkTocHeadings(options: RemarkTocHeadingsOptions): Transformer<Nodes> {
   const autoId = options.autoId ?? true;
-  options.data = { tree: [], flat: [] };
+  options.data ??= { tree: [], flat: [] };
   const data = options.data;
 
   return tree => {

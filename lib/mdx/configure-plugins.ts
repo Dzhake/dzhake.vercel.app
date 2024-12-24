@@ -25,8 +25,8 @@ export interface MdxPluginConfigs {
 }
 
 export default function configurePlugins(config: MdxPluginConfigs = {}) {
-  const tocOptions: RemarkTocHeadingsOptions = {};
-  const analysisOptions: RemarkAnalyzeOptions = {};
+  const tocOptions: RemarkTocHeadingsOptions = { data: {} as never };
+  const analysisOptions: RemarkAnalyzeOptions = { data: {} as never };
   const embedOptions: RemarkEmbedOptions = { size: config?.embedSize };
 
   const options: Pick<MdxOptions, "remarkPlugins" | "rehypePlugins" | "extraOutputComponents"> = {
