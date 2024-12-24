@@ -53,6 +53,7 @@ const title = "Dzhake";
 
 export const metadata: Metadata = {
   title: { default: title, template: `%s | ${title}` },
+  description: "",
   generator: "Next.js",
   applicationName: title,
   keywords: [],
