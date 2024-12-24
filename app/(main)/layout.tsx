@@ -38,6 +38,10 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
             <Link href="/markdown">{"Markdown demo"}</Link>
           </div>
         </div>
+        <div className={styles.footerCopyright}>
+          {"Copyright © 2024 Chasmical"}
+          <div />
+        </div>
       </footer>
     </SupabaseAuth>
   );
@@ -56,10 +60,7 @@ const title = "chsm.dev";
 const description = "A personal website for a bunch of stupid stuff";
 
 export const metadata: Metadata = {
-  title: {
-    template: `%s | ${title}`,
-    default: `UNTITLED | ${title}`,
-  },
+  title: { default: title, template: `%s | ${title}` },
   description,
   generator: "Next.js",
   applicationName: title,

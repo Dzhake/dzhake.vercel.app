@@ -30,7 +30,7 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  padding: 24px 32px;
+  padding: 2rem;
 
   background-color: var(--color-background);
   border-top: 1px solid var(--color-border);
@@ -38,14 +38,23 @@
 .footerLinks {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: 1rem;
   width: 100%;
   max-width: 1000px;
 
   > div {
     display: flex;
     flex-flow: column;
-    gap: 12px;
+    gap: 0.75rem;
   }
 }
+.footerCopyright {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+  margin-top: 3rem;
 
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
