@@ -50,10 +50,11 @@ async function SupabaseAuth({ children }: React.PropsWithChildren) {
 }
 
 const title = "Dzhake";
+const description = "";
 
 export const metadata: Metadata = {
   title: { default: title, template: `%s | ${title}` },
-  description: "",
+  description,
   generator: "Next.js",
   applicationName: title,
   keywords: [],
