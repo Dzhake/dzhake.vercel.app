@@ -2,7 +2,7 @@ import "server-only";
 import { cookies as getCookies } from "next/headers";
 import { createServerClient, type CookieMethodsServer } from "@supabase/ssr";
 import { createClient as createSupabaseClient, type SupabaseClientOptions } from "@supabase/supabase-js";
-import type { Database, TypedSupabaseClient } from "./types";
+import type { Database, Supabase } from "./types";
 
 type ReadonlyRequestCookies = Awaited<ReturnType<typeof getCookies>>;
 type ClientOptions = SupabaseClientOptions<string & keyof Database> & { cookies: CookieMethodsServer };
@@ -31,19 +31,19 @@ const serviceKey = process.env.SUPABASE_SERVICE_KEY;
 // Note: User clients MUST NOT cache request data, since it may vary between users.
 //       Only anonymous and service role clients can cache request data.
 
-export function createServerSupabase(role?: "user"): Promise<TypedSupabaseClient>;
-export function createServerSupabase(role: "anonymous", next?: NextFetchRequestConfig): TypedSupabaseClient;
-export function createServerSupabase(role: "SERVICE_ROLE", next?: NextFetchRequestConfig): TypedSupabaseClient;
+export function createServerSupabase(role?: "user"): Promise<Supabase>;
+export function createServerSupabase(role: "anonymous", next?: NextFetchRequestConfig): Supabase;
+export function createServerSupabase(role: "SERVICE_ROLE", next?: NextFetchRequestConfig): Supabase;
 export function createServerSupabase(role?: "user" | "anonymous" | "SERVICE_ROLE", next?: NextFetchRequestConfig) {
   switch (role || "user") {
     case "user":
       return getCookies().then(cookies => {
-        return createServerClient(url, anonKey, configureFetch(cookies, next)) as TypedSupabaseClient;
+        return createServerClient(url, anonKey, configureFetch(cookies, next)) as Supabase;
       });
     case "anonymous":
-      return createServerClient(url, anonKey, configureFetch(null, next)) as TypedSupabaseClient;
+      return createServerClient(url, anonKey, configureFetch(null, next)) as Supabase;
     case "SERVICE_ROLE":
-      return createSupabaseClient(url, serviceKey!, configureFetch(null, next)) as TypedSupabaseClient;
+      return createSupabaseClient(url, serviceKey!, configureFetch(null, next)) as Supabase;
     default:
       throw new Error("createServerSupabase was called with invalid client type.");
   }

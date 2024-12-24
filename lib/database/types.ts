@@ -4,7 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 export type { Database };
 export type { Session as SupabaseSession, User as SupabaseUser } from "@supabase/supabase-js";
 
-export interface TypedSupabaseClient extends SupabaseClient<Database> {}
+export interface Supabase extends SupabaseClient<Database> {}
 
 export type DbUser = Tables<"users">;
 export type DbLanguage = Tables<"languages">;
