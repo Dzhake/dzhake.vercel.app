@@ -14,6 +14,7 @@ export interface LinkProps extends Omit<AppRouterLinkProps, "href"> {
   children?: React.ReactNode;
   tabIndex?: number;
   draggable?: "false";
+  itemProp?: "url"; // add types as needed
 }
 
 const Link = forwardRef(function Link(

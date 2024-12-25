@@ -12,6 +12,7 @@ export interface HeadingProps {
   children?: React.ReactNode;
   // ...props
   style?: React.CSSProperties;
+  itemProp?: "headline"; // add types as needed
 }
 
 export default function Heading({ level, id, className, children, ...props }: HeadingProps) {

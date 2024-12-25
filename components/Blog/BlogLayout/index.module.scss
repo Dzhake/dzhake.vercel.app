@@ -8,6 +8,7 @@
 .colSidebar {
   flex: 0 1 23%;
   max-width: 23%;
+  padding-left: 1rem;
 }
 .colContent {
   flex: 0 0 60%;
@@ -17,4 +18,5 @@
 .colToc {
   flex: 0 0 17%;
   max-width: 17%;
+  padding-right: 1rem;
 }
