@@ -22,7 +22,7 @@ export default function BlogTocClient({ children }: React.PropsWithChildren) {
     if (lastActiveLink.current === newActiveLink) return;
 
     lastActiveLink.current?.classList.remove(styles.active);
-    newActiveLink.classList.add(styles.active);
+    newActiveLink?.classList.add(styles.active);
     lastActiveLink.current = newActiveLink;
   }
 
