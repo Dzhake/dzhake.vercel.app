@@ -18,7 +18,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         </nav>
       </header>
 
-      <main>{children}</main>
+      {children}
 
       <footer className={styles.footer}>
         <div className={styles.footerLinks}>
