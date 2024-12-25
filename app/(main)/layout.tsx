@@ -12,7 +12,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
           <div className={styles.navbarLinks}>
             <h1>{"CHSM"}</h1>
             <Link href="/">{"Main page"}</Link>
-            <Link href="/subtext">{"Subtext"}</Link>
+            {/* <Link href="/subtext">{"Subtext"}</Link> */}
             <Link href="/blog">{"Blog"}</Link>
           </div>
         </nav>
@@ -29,9 +29,10 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
           </div>
           <div>
             <h4>{"Subtext"}</h4>
-            <Link href="/subtext">{"About Subtext"}</Link>
+            {"Work-In-Progress"}
+            {/* <Link href="/subtext">{"About Subtext"}</Link>
             <Link href="/subtext/packs/6">{"Sub packs"}</Link>
-            <Link href="/subtext/collections/1">{"Sub collections"}</Link>
+            <Link href="/subtext/collections/1">{"Sub collections"}</Link> */}
           </div>
           <div>
             <h4>{"Tools and utilities"}</h4>
