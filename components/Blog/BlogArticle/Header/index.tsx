@@ -30,7 +30,13 @@ export default function BlogArticleHeader({ post }: BlogArticleHeaderProps) {
         </div>
         <div className={styles.tagsRow}>
           <b>{"Tags: "}</b>
-          {post.tags.length ? <TagList tags={post.tags} /> : "none"}
+          {post.tags.length
+            ? post.tags.map(tag => (
+                <NextLink key={tag} href="#" className={styles.tagLink}>
+                  {tag}
+                </NextLink>
+              ))
+            : "none"}
         </div>
       </div>
     </header>
@@ -52,19 +58,6 @@ function AuthorInfo({ author }: { author: DbBlogPostWithAuthors["authors"][numbe
         {author.label && <span itemProp="description">{author.label}</span>}
       </div>
     </div>
-  );
-}
-function TagList({ tags }: { tags: string[] }) {
-  return (
-    <ul className={styles.tagsList}>
-      {tags.map(tag => (
-        <li key={tag}>
-          <NextLink href="#" className={styles.tagLink}>
-            {tag}
-          </NextLink>
-        </li>
-      ))}
-    </ul>
   );
 }
 

@@ -10,7 +10,12 @@
   gap: 0.5rem 1rem;
 }
 .tagsRow {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
   margin-top: 0.5rem;
+  grid-column: span 2;
+  gap: 4px;
 }
 
 .authorsList {
@@ -40,21 +45,12 @@
   }
 }
 
-.tagsList {
-  list-style: none;
-  display: inline-flex;
-  padding: 0;
-  gap: 4px;
-
-  > li {
-    margin-top: 0;
-  }
-}
 .tagLink {
   color: var(--color-accent-lighter);
   padding: 4px 6px;
   border: 1px solid var(--color-border-lighter);
   border-radius: 8px;
+  text-wrap: nowrap;
 
   transition: border-color 0.3s;
   &:hover {
