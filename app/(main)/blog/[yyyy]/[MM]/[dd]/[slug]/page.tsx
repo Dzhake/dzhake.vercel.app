@@ -7,9 +7,9 @@ import { extractFrontmatter } from "@lib/mdx/frontmatter";
 import configurePlugins, { MdxPluginConfigs } from "@lib/mdx/configure-plugins";
 import configureComponents from "@lib/mdx/configure-components";
 import BlogLayout from "@components/Blog/BlogLayout";
-import { markdownClass } from "@components/Specialized/MarkdownWrapper";
-import BlogPagination from "@components/Blog/BlogPagination";
 import BlogSidebar from "@components/Blog/BlogSidebar";
+import BlogArticle from "@components/Blog/BlogArticle";
+import BlogPagination from "@components/Blog/BlogPagination";
 import BlogToc from "@components/Blog/BlogToc";
 
 interface PageProps {
@@ -44,10 +44,7 @@ export default async function BlogPostPage({ params: paramsPromise }: PageProps)
       sidebar={<BlogSidebar posts={recent} />}
       article={
         <>
-          <div id="__blogPostContainer" className={markdownClass}>
-            <h1>{post.title}</h1>
-            {content}
-          </div>
+          <BlogArticle mdxContent={content} post={post} />
           <BlogPagination cur={post} prev={recent[curIndex + 1]} next={recent[curIndex - 1]} />
         </>
       }

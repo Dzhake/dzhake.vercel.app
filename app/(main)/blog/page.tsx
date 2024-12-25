@@ -5,9 +5,9 @@ import { compileMdx } from "@lib/mdx";
 import configurePlugins, { MdxPluginConfigs } from "@lib/mdx/configure-plugins";
 import configureComponents from "@lib/mdx/configure-components";
 import BlogLayout from "@components/Blog/BlogLayout";
-import { markdownClass } from "@components/Specialized/MarkdownWrapper";
-import BlogPagination from "@components/Blog/BlogPagination";
 import BlogSidebar from "@components/Blog/BlogSidebar";
+import BlogArticle from "@components/Blog/BlogArticle";
+import BlogPagination from "@components/Blog/BlogPagination";
 import BlogToc from "@components/Blog/BlogToc";
 
 export default async function BlogLandingPage() {
@@ -30,10 +30,7 @@ export default async function BlogLandingPage() {
       sidebar={<BlogSidebar posts={recent} />}
       article={
         <>
-          <div id="__blogPostContainer" className={markdownClass}>
-            <h1>{newest.title}</h1>
-            {content}
-          </div>
+          <BlogArticle mdxContent={content} post={newest} />
           <BlogPagination cur={newest} prev={recent[1]} />
         </>
       }
