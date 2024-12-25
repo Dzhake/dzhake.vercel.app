@@ -6,5 +6,10 @@ export function getBlogPostUrl(post: Pick<DbBlogPost, "created_at" | "slug">) {
 
 export function getBlogPostSlug(post: Pick<DbBlogPost, "created_at" | "slug">) {
   const date = new Date(post.created_at);
-  return `${date.getUTCFullYear()}/${date.getUTCMonth() + 1}/${date.getUTCDate()}/${post.slug}`;
+  return [
+    date.getUTCFullYear(),
+    ("" + (date.getUTCMonth() + 1)).padStart(2, "0"),
+    ("" + date.getUTCDate()).padStart(2, "0"),
+    post.slug,
+  ].join("/");
 }

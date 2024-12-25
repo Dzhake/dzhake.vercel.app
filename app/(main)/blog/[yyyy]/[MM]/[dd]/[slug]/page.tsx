@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { createServerSupabase } from "@lib/database/server";
-import { getAllBlogPostsShallow, getBlogPostFromParams, getBlogPostUrl } from "@api/blog";
+import { getAllBlogPostsShallow, getBlogPostFromParams, getBlogPostSlug, getBlogPostUrl } from "@api/blog";
 import { compileMdx } from "@lib/mdx";
 import { extractFrontmatter } from "@lib/mdx/frontmatter";
 import configurePlugins, { MdxPluginConfigs } from "@lib/mdx/configure-plugins";
@@ -54,6 +54,18 @@ export default async function BlogPostPage({ params: paramsPromise }: PageProps)
       toc={<BlogToc toc={mdxOptions.toc!} />}
     />
   );
+}
+
+export async function generateStaticParams(): Promise<Awaited<PageProps["params"]>[]> {
+  // Get the latest blog posts (shallow) to pre-render (throw notFound on error)
+  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
+  const recent = (await getAllBlogPostsShallow(supabase)) || [];
+
+  // Map existing posts into params
+  return recent.map(post => {
+    const parts = getBlogPostSlug(post);
+    return { yyyy: parts[0], MM: parts[1], dd: parts[2], slug: parts[3] };
+  });
 }
 
 export async function generateMetadata({ params: paramsPromise }: PageProps): Promise<Metadata> {
