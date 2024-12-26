@@ -1,26 +1,26 @@
 import type { oEmbedEndpoint, oEmbedProvider, oEmbedResponse } from "./types";
 export type * from "./types";
 
-export interface oEmbedConfig<X = object> {
+export interface oEmbedInput<X = object> {
   providers: oEmbedProvider[];
-  overrides?: { [provider_name: string]: ProviderOverrides & X };
+  overrides?: { [provider_name: string]: ProviderParams & X };
   size: [width: number, height: number];
 }
-interface ProviderOverrides {
+interface ProviderParams {
   size?: [width: number, height: number];
-  params?: Record<string, unknown>;
+  params?: Record<string, string | number | boolean>;
 }
 
-interface oEmbedInfo<X = object> {
+export interface oEmbedInfo<X = object> {
   requestUrl: URL;
   provider: oEmbedProvider;
   endpoint: oEmbedEndpoint;
-  override?: ProviderOverrides & X;
+  override?: ProviderParams & X;
   size: [width: number, height: number];
   response: () => Promise<oEmbedResponse>;
 }
 
-export function getOEmbed<X>(config: oEmbedConfig<X>, url: string): oEmbedInfo<X> | undefined {
+export function getOEmbed<X>(config: oEmbedInput<X>, url: string): oEmbedInfo<X> | undefined {
   // Find the matching oEmbed API endpoint
   const endpointInfo = findOEmbedEndpoint(config.providers, url);
   if (!endpointInfo) return;
@@ -30,10 +30,14 @@ export function getOEmbed<X>(config: oEmbedConfig<X>, url: string): oEmbedInfo<X
   const override = config.overrides?.[provider.provider_name];
   const size = override?.size ?? config.size;
 
-  const requestUrl = createOEmbedRequestUrl(url, endpoint, size, override);
+  const requestUrl = createOEmbedRequestUrl(url, endpoint, size, override?.params);
 
   const response = async (): Promise<oEmbedResponse> => {
-    const res = await fetch(requestUrl, { next: { revalidate: 3600 } });
+    const res = await fetch(
+      requestUrl,
+      // Cache on server for 1 hour, and cache on client indefinitely
+      typeof window === "undefined" ? { next: { revalidate: 3600 } } : { cache: "force-cache" },
+    );
     const data: oEmbedResponse = await res.json();
     return data;
   };
@@ -56,7 +60,7 @@ export function createOEmbedRequestUrl(
   url: string,
   endpoint: oEmbedEndpoint,
   size: [width: number, height: number],
-  overrides?: ProviderOverrides,
+  extraParams?: Record<string, string | number | boolean>,
 ) {
   // Build the request URL
   const format = "json";
@@ -69,7 +73,7 @@ export function createOEmbedRequestUrl(
     format,
     maxwidth: size[0],
     maxheight: size[1],
-    ...overrides?.params,
+    ...extraParams,
   };
   for (const key in params) {
     requestUrl.searchParams.set(key, "" + params[key as never]);

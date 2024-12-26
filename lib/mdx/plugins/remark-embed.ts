@@ -2,38 +2,37 @@ import type { Transformer } from "unified";
 import type { Node, Nodes, Paragraph } from "mdast";
 import { visit } from "unist-util-visit";
 import transformIntoMdxJsx from "../misc/transformIntoMdxJsx";
-import { oEmbedConfig as oEmbedConfigBase, oEmbedProvider, getOEmbed } from "@lib/oembed";
+import { oEmbedInput as oEmbedInputBase, oEmbedProvider, getOEmbed } from "@lib/oembed";
 import { fetchDefaultProviders as fetchProvidersServer } from "@api/oembed/default-providers";
 
-type oEmbedConfig = oEmbedConfigBase<{ componentName?: string }>;
+type oEmbedInput = oEmbedInputBase<{ componentName?: string }>;
 
 export interface RemarkEmbedOptions {
   componentName?: string;
   providers?: (getDefaultProviders: () => Promise<oEmbedProvider[]>) => Promise<oEmbedProvider[]>;
-  overrides?: oEmbedConfig["overrides"];
+  overrides?: oEmbedInput["overrides"];
   size?: [width: number, height: number];
 }
 
 export default function remarkEmbed(options: RemarkEmbedOptions = {}): Transformer<Nodes> {
   const defaultComponentName = options.componentName ?? "Embed";
 
+  // Determine the default fetching method (server / client)
   const fetchProviders = typeof window === "undefined" ? fetchProvidersServer : fetchProvidersClient;
 
   async function fetchProvidersClient() {
-    const res = await fetch("/api/oembed/default-providers", { next: { revalidate: 3600 } });
+    // On client, fetch from API route and cache indefinitely
+    const res = await fetch("/api/oembed/default-providers", { cache: "force-cache" });
     return (await res.json()) as oEmbedProvider[];
   }
 
   // Do the fetch request once per plugin instantiation
-  let providers: oEmbedProvider[] = [];
-  const initProvidersPromise = (async () => {
-    providers = await (options.providers ?? (f => f()))(fetchProviders);
-  })();
+  const getProvidersPromise = (options.providers ?? (f => f()))(fetchProviders);
 
   return async tree => {
-    await initProvidersPromise;
+    const providers = await getProvidersPromise;
 
-    const oEmbedConfig: oEmbedConfig = {
+    const oEmbedConfig: oEmbedInput = {
       providers,
       overrides: options.overrides,
       size: options.size ?? [800, 450],

@@ -1,4 +1,3 @@
-import "server-only";
 import type { oEmbedProvider } from "@lib/oembed";
 
 export async function fetchDefaultProviders(): Promise<oEmbedProvider[]> {
