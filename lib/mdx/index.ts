@@ -1,14 +1,15 @@
 import React from "react";
-import { VFile, type VFileCompatible } from "vfile";
-import { compile, type CompileOptions } from "@mdx-js/mdx";
-import { jsxRuntime } from "./jsx-runtime.cjs";
-import { extractFrontmatter } from "@lib/mdx/frontmatter";
-import type { MDXComponents, MDXModule } from "mdx/types";
 import type { PluggableList } from "unified";
+import type { MDXComponents, MDXModule } from "mdx/types";
+import { VFile, type VFileCompatible } from "vfile";
+import { createProcessor } from "@mdx-js/mdx";
+import { extractFrontmatter } from "@lib/mdx/frontmatter";
+import { jsxRuntime } from "@lib/mdx/jsx-runtime.cjs";
 
-export type { MDXComponents as MdxComponents, MDXProps as MdxProps } from "mdx/types";
+export type { PluggableList as MdxPlugins } from "unified";
+export type { MDXComponents as MdxComponents } from "mdx/types";
 
-export interface MdxOptions {
+export interface MdxConfig {
   format?: "md" | "mdx";
   rehypePlugins: PluggableList;
   remarkPlugins: PluggableList;
@@ -16,35 +17,56 @@ export interface MdxOptions {
   components?: MDXComponents;
   extraOutputComponents?: React.FunctionComponent[];
 }
-
+export interface MdxEvalOptions {
+  scope?: Record<string, unknown>;
+}
+export interface MdxProcessor {
+  processor: ReturnType<typeof createProcessor>;
+  compile: <FM>(markdown: VFileCompatible) => Promise<MdxResult<FM>>;
+}
 export interface MdxResult<FM> {
-  source: string;
   frontmatter?: FM;
   content: React.ReactNode;
 }
 
-export async function compileMdx<FM>(markdown: VFileCompatible, options: MdxOptions): Promise<MdxResult<FM>> {
-  const vfile = new VFile(markdown);
-  const { frontmatter } = extractFrontmatter<FM>(vfile, true);
-
-  const compileOptions: CompileOptions = {
-    format: options.format ?? "md",
-    rehypePlugins: options.rehypePlugins,
-    remarkPlugins: options.remarkPlugins,
+export function configureMdx(config: MdxConfig): MdxProcessor {
+  // Create a unified processor from the specified configuration
+  const processor = createProcessor({
+    format: config?.format ?? "md",
+    rehypePlugins: config.rehypePlugins,
+    remarkPlugins: config.remarkPlugins,
     outputFormat: "function-body",
     development: process.env.NODE_ENV === "development",
+  });
+
+  const compile = async <FM>(markdown: VFileCompatible, evalOptions?: MdxEvalOptions) => {
+    // Create a VFile and parse the frontmatter from it
+    const vfile = new VFile(markdown);
+    const { frontmatter } = extractFrontmatter<FM>(vfile, true);
+
+    // Combine all of the provided scope variables
+    const scope = { ...config.scope, frontmatter, ...evalOptions?.scope };
+
+    // Process the markdown, and then evaluate the generated JS module
+    const source = String(await processor.process(vfile));
+    const { default: Content } = await evaluateModule(source, scope);
+
+    // Create a React element: <Content components={…} />
+    let content: React.ReactNode = React.createElement(Content, { components: config.components });
+
+    if (config.extraOutputComponents) {
+      // Add extra output components (such as KatexCopyHandler)
+      const extra = config.extraOutputComponents.map(component => React.createElement(component));
+      content = React.createElement(React.Fragment, undefined, content, ...extra);
+    }
+    return { frontmatter, content };
   };
 
-  const source = String(await compile(vfile, compileOptions));
-  const { default: Content } = await compileMdxModule(source, { ...options.scope, frontmatter });
-  let content: React.ReactNode = React.createElement(Content, { components: options.components });
+  return { processor, compile };
+}
 
-  if (options.extraOutputComponents) {
-    const extra = options.extraOutputComponents.map(component => React.createElement(component));
-    content = React.createElement(React.Fragment, undefined, content, ...extra);
-  }
-
-  return { frontmatter, source, content };
+export function compileMdx<FM>(markdown: VFileCompatible, config: MdxConfig) {
+  return configureMdx(config).compile<FM>(markdown);
 }
 
 interface AsyncFunctionConstructor {
@@ -52,7 +74,7 @@ interface AsyncFunctionConstructor {
 }
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor as AsyncFunctionConstructor;
 
-function compileMdxModule(source: string, scope: Record<string, unknown> | null) {
+function evaluateModule(source: string, scope?: Record<string, unknown> | null) {
   // Note: jsxRuntime needs to be accessible through arguments[0]
   scope = { jsxRuntime, ...scope };
 

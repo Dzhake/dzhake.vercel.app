@@ -1,4 +1,4 @@
-import type { MdxOptions } from "@lib/mdx";
+import type { MdxComponents } from "@lib/mdx";
 import Link from "@components/Common/Link";
 import Code from "@components/Common/Code";
 import CodeBlock from "@components/Common/CodeBlock/server";
@@ -12,7 +12,7 @@ function makeHeading(depth: 1 | 2 | 3 | 4 | 5 | 6) {
   return (props: HeadingProps) => <Heading {...props} level={depth} />;
 }
 
-export default function configureComponents(_config?: unknown): MdxOptions["components"] {
+export default function configureComponents(_config?: unknown): MdxComponents {
   return {
     em: "i",
     strong: "b",

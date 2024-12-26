@@ -1,4 +1,4 @@
-import type { MdxOptions } from "@lib/mdx";
+import type { MdxConfig } from "@lib/mdx";
 // Remark plugins
 import remarkGfm from "remark-gfm";
 import remarkBreaks from "remark-breaks";
@@ -29,7 +29,7 @@ export default function configurePlugins(config: MdxPluginConfigs = {}) {
   const analysisOptions: RemarkAnalyzeOptions = { data: {} as never };
   const embedOptions: RemarkEmbedOptions = { size: config?.embedSize };
 
-  const options: Pick<MdxOptions, "remarkPlugins" | "rehypePlugins" | "extraOutputComponents"> = {
+  const options: Pick<MdxConfig, "remarkPlugins" | "rehypePlugins" | "extraOutputComponents"> = {
     remarkPlugins: [
       [remarkGfm, { singleTilde: false }],
       remarkBreaks,
