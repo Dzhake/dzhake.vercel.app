@@ -29,6 +29,7 @@ export default function useThrottle<Args extends unknown[]>(
       } else {
         // Otherwise, go back to "idle" state
         setState("idle");
+        timeoutRef.current = 0;
       }
     }, delayMs);
   };
