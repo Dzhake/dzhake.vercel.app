@@ -3,7 +3,7 @@ import type { Node, Nodes, Paragraph } from "mdast";
 import { visit } from "unist-util-visit";
 import transformIntoMdxJsx from "../misc/transformIntoMdxJsx";
 import { oEmbedInput as oEmbedInputBase, oEmbedProvider, getOEmbed } from "@lib/oembed";
-import { fetchDefaultProviders as fetchProvidersServer } from "@api/oembed/default-providers";
+import { fetchDefaultProviders as fetchProvidersServer } from "@api/oembed/default-providers.json";
 
 type oEmbedInput = oEmbedInputBase<{ componentName?: string }>;
 
@@ -21,8 +21,8 @@ export default function remarkEmbed(options: RemarkEmbedOptions = {}): Transform
   const fetchProviders = typeof window === "undefined" ? fetchProvidersServer : fetchProvidersClient;
 
   async function fetchProvidersClient() {
-    // On client, fetch from API route and cache indefinitely
-    const res = await fetch("/api/oembed/default-providers", { cache: "force-cache" });
+    // On client, fetch from API route (see its Cache-Control)
+    const res = await fetch("/api/oembed/default-providers.json");
     return (await res.json()) as oEmbedProvider[];
   }
 
