@@ -1,7 +1,7 @@
 import type { MdxComponents } from "@lib/mdx";
 import Link from "@components/Common/Link";
 import Code from "@components/Common/Code";
-import CodeBlock from "@components/Common/CodeBlock/server";
+import CodeBlock from "@components/Common/CodeBlock";
 import Heading, { HeadingProps } from "@components/Common/Heading";
 import InlineCssColor from "@components/Specialized/InlineCssColor";
 import Embed from "@components/Specialized/Embed";
