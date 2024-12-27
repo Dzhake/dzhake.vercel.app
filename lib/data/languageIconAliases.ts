@@ -46,11 +46,11 @@ export type LanguageOrIconAlias = Exclude<(typeof languageIconAliasesConst)[numb
 type LanguageIconAliases = [prism: string | undefined, seti: string, ...aliases: string[]];
 const languageIconAliases = languageIconAliasesConst as readonly Readonly<LanguageIconAliases>[];
 
-export function findPrismLanguage(name: string) {
-  return languageIconAliases.find(aliases => aliases.includes(name))?.[0] as PrismLanguage | undefined;
+export function findPrismLanguage(name: string | undefined) {
+  if (name) return languageIconAliases.find(aliases => aliases.includes(name))?.[0] as PrismLanguage | undefined;
 }
-export function findSetiIcon(name: string) {
-  return languageIconAliases.find(aliases => aliases.includes(name))?.[1] as SetiIcon | undefined;
+export function findSetiIcon(name: string | undefined) {
+  if (name) return languageIconAliases.find(aliases => aliases.includes(name))?.[1] as SetiIcon | undefined;
 }
 
 export default languageIconAliases;
