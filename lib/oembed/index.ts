@@ -39,6 +39,11 @@ export function getOEmbed<X>(config: oEmbedInput<X>, url: string): oEmbedInfo<X>
       typeof window === "undefined" ? { next: { revalidate: 3600 } } : { cache: "force-cache" },
     );
     const data: oEmbedResponse = await res.json();
+
+    // Prevent spoofing through response's data
+    data.provider_name = provider.provider_name;
+    data.provider_url = provider.provider_url;
+
     return data;
   };
 

@@ -51,8 +51,8 @@ export default function configurePlugins(config: MdxPluginConfigs = {}) {
     extraOutputComponents: [KatexCopyHandler],
   };
 
-  config.toc = tocOptions.data!;
-  config.analysis = analysisOptions.data!;
+  config.toc = tocOptions.data;
+  config.analysis = analysisOptions.data;
 
   return options;
 }

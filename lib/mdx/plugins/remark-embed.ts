@@ -44,7 +44,6 @@ export default function remarkEmbed(options: RemarkEmbedOptions = {}): Transform
         const info = getOEmbed(oEmbedConfig, url);
         if (!info) return;
         const response = await info.response();
-        if (!response) return;
 
         // Transform the node into a MdxJsx component with necessary attributes
         const componentName = info.override?.componentName ?? defaultComponentName;
