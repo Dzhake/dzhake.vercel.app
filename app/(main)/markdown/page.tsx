@@ -4,7 +4,7 @@ import configurePlugins from "@lib/mdx/configure-plugins";
 import configureComponents from "@lib/mdx/configure-components";
 import { markdownClass } from "@components/Specialized/MarkdownWrapper";
 
-export default async function AboutPage() {
+export default async function MarkdownPage() {
   const { content } = await compileMdx(markdown, {
     format: "mdx",
     ...configurePlugins({ embedSize: [480, 270] }),

@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "@components/Common/Link";
 import styles from "./layout.module.scss";
-import { createServerSupabase } from "@lib/database/server";
 import { SupabaseProvider } from "@lib/hooks/useSupabaseSession";
 
 export default function MainLayout({ children }: React.PropsWithChildren) {
   return (
-    <SupabaseAuth>
+    <ClientProviders>
       <header className={styles.header}>
         <nav className={styles.navbar}>
           <div className={styles.navbarLinks}>
@@ -44,17 +43,12 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
           <div />
         </div>
       </footer>
-    </SupabaseAuth>
+    </ClientProviders>
   );
 }
 
-async function SupabaseAuth({ children }: React.PropsWithChildren) {
-  const supabase = await createServerSupabase();
-  supabase.auth["suppressGetSessionWarning"] = true;
-  // getSession() gets an unverified session, so it's pretty quick, 3-10 ms
-  const session = (await supabase.auth.getSession()).data.session;
-
-  return <SupabaseProvider initialSession={session}>{children}</SupabaseProvider>;
+async function ClientProviders({ children }: React.PropsWithChildren) {
+  return <SupabaseProvider>{children}</SupabaseProvider>;
 }
 
 const title = "chsm.dev";
