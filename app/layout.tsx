@@ -5,7 +5,7 @@ import "./global.scss";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "chsm.dev",
+  title: "Dzhake",
   description: "A personal website for a bunch of stupid stuff",
 };
 
