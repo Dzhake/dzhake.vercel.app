@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 80vw;
   height: 64px;
 }
 .navbarLinks {
@@ -40,19 +40,24 @@
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
-  max-width: 1000px;
+  max-width: 70vw;
+  color: var(--color-text-secondary);
 
   > div {
     display: flex;
     flex-flow: column;
     gap: 0.75rem;
+
+    > a {
+      color: var(--color-text-secondary);
+    }
   }
 }
 .footerCopyright {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 1000px;
+  max-width: 70vw;
   margin-top: 3rem;
 
   color: var(--color-text-secondary);
