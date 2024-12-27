@@ -11,7 +11,6 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
           <div className={styles.navbarLinks}>
             <h1>{"Dzhake"}</h1>
             <Link href="/">{"Main page"}</Link>
-            {/* <Link href="/subtext">{"Subtext"}</Link> */}
             <Link href="/blog">{"Blog"}</Link>
           </div>
         </nav>
@@ -25,13 +24,6 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
             <h4>{"Information"}</h4>
             <Link href="/about">{"About chsm.dev"}</Link>
             <Link href="https://github.com/Dzhake/dzhake.vercel.app">{"GitHub repo"}</Link>
-          </div>
-          <div>
-            <h4>{"Subtext"}</h4>
-            {"Work-In-Progress"}
-            {/* <Link href="/subtext">{"About Subtext"}</Link>
-            <Link href="/subtext/packs/6">{"Sub packs"}</Link>
-            <Link href="/subtext/collections/1">{"Sub collections"}</Link> */}
           </div>
           <div>
             <h4>{"Tools and utilities"}</h4>
