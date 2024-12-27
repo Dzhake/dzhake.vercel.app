@@ -22,7 +22,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
         <div className={styles.footerLinks}>
           <div>
             <h4>{"Information"}</h4>
-            <Link href="/about">{"About chsm.dev"}</Link>
+            <Link href="/about">{"About website"}</Link>
             <Link href="https://github.com/Dzhake/dzhake.vercel.app">{"GitHub repo"}</Link>
           </div>
           <div>
