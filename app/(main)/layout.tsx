@@ -63,18 +63,4 @@ export const metadata: Metadata = {
   authors: [{ name: "Chasmical", url: "/user/Chasmical" }],
   creator: "Chasmical",
   formatDetection: { email: false, address: false, telephone: false },
-
-  openGraph: {
-    type: "website",
-    title: { default: title, template: `%s | ${title}` },
-    description,
-    locale: "en",
-    images: [],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: { default: title, template: `%s | ${title}` },
-    description,
-    images: [],
-  },
 };
