@@ -60,8 +60,8 @@ export async function generateStaticParams(): Promise<Awaited<PageProps["params"
 
   // Map existing posts into params
   return recent.map(post => {
-    const parts = getBlogPostSlug(post);
-    return { yyyy: parts[0], MM: parts[1], dd: parts[2], slug: parts[3] };
+    const [yyyy, MM, dd, slug] = getBlogPostSlug(post).split("/");
+    return { yyyy, MM, dd, slug };
   });
 }
 
