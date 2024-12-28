@@ -4044,6 +4044,11 @@ rimraf@^5.0.5:
   dependencies:
     glob "^10.3.7"
 
+rsc-env@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/rsc-env/-/rsc-env-0.0.2.tgz#03b8a6c05086cbe7819382d6bacfa2c3e1bb7fe8"
+  integrity sha512-ixLbILtzlGEBl25ATa+jBwdKY6GgoN8XwFho+7ycVpCCJ9ijXlWQB0UnLGGU6aWtL+pTzlcaKI7W0xVQjnL5uA==
+
 run-parallel@^1.1.9:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/run-parallel/-/run-parallel-1.2.0.tgz#66d1368da7bdf921eb9d95bd1a9229e7f21a43ee"

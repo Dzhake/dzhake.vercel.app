@@ -33,6 +33,7 @@
     "remark-directive": "^3.0.0",
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
+    "rsc-env": "^0.0.2",
     "server-only": "^0.0.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",

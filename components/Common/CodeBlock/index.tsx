@@ -5,7 +5,7 @@ import useHighlightLanguage from "./utils/useHighlightLanguage";
 import CodeBlockContainer from "./Container";
 import CodeBlockHighlightRenderer from "./Renderer/highlight";
 import CodeBlockPlainRenderer from "./Renderer/plain";
-import { isRSC } from "@lib/utils/server-helper";
+import { rsc } from "rsc-env";
 
 export type { LanguageOrIconAlias, PrismLanguage } from "@lib/data/languageIconAliases";
 
@@ -36,7 +36,7 @@ export default function CodeBlock({ children, nonums, ...props }: CodeBlockProps
    * after the required highlight syntax is imported.
    */
 
-  if (typeof window === "undefined" && isRSC()) {
+  if (rsc) {
     return importHighlightLanguage(props.lang).then(compositeBlock);
   }
 
