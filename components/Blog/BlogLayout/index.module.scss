@@ -1,22 +1,42 @@
 .container {
   display: flex;
   flex-wrap: nowrap;
+  justify-content: flex-end;
   width: 100%;
-  max-width: 1320px;
-  margin: 2rem auto 2rem;
+  max-width: 1584px;
+  margin: 0 auto 2rem;
 }
 .colSidebar {
-  flex: 0 0 23%;
-  max-width: 23%;
+  flex: 0 0 20%;
+  max-width: 20%;
   padding-left: 1rem;
 }
 .colContent {
-  flex: 0 0 60%;
-  max-width: 60%;
+  flex: 0 0 50%;
+  max-width: 50%;
   padding: 0 2rem;
 }
 .colToc {
-  flex: 0 0 17%;
-  max-width: 17%;
+  flex: 0 0 25%;
+  max-width: 25%;
   padding-right: 1rem;
+}
+
+@media (max-width: 1140px) {
+  .colSidebar {
+    display: none;
+  }
+  .colContent {
+    flex: 0 0 70%;
+    max-width: 70%;
+  }
+}
+@media (max-width: 840px) {
+  .colContent {
+    flex: 0 0 95%;
+    max-width: 95%;
+  }
+  .colToc {
+    display: none;
+  }
 }

@@ -20,8 +20,8 @@
 }
 
 .authorsList {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 0.5rem;
   grid-row: span 2;
