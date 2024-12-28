@@ -66,14 +66,14 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    title,
+    title: { default: title, template: `%s | ${title}` },
     description,
     locale: "en",
     images: [],
   },
   twitter: {
     card: "summary_large_image",
-    title,
+    title: { default: title, template: `%s | ${title}` },
     description,
     images: [],
   },
