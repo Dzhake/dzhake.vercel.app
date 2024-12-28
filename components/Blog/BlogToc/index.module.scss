@@ -4,6 +4,10 @@
   top: calc(var(--navbar-height) + 3rem);
   border-left: 2px solid var(--color-border);
   padding: 0.5rem 0;
+
+  // Stretch slightly outside of the defined boundaries, to make use of the space on the right
+  width: max-content;
+  max-width: 400px;
 }
 
 .items {

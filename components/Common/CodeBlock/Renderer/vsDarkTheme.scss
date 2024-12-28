@@ -17,7 +17,12 @@
 .token.class-name { color: rgb(78, 201, 176) }
 .token.char { color: rgb(209, 105, 105) }
 
-.refractor[class*="language-markup"] {
-  .token.tag { color: rgb(86, 156, 214) }
-  .token.punctuation { color: #808080 }
+.refractor {
+  &:is([class*="language-markup"], [class*="language-jsx"], [class*="language-tsx"]) {
+    .token.tag { color: rgb(86, 156, 214) }
+    // .token.punctuation { color: #808080 }
+  }
+  &:is([class*="language-markup"]) {
+    .token.punctuation { color: #808080 }
+  }
 }
