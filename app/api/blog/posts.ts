@@ -1,9 +1,9 @@
 import "server-only";
-import type { DbBlogPostShallow, DbBlogPostWithAuthors, DbUser } from "@lib/database/types";
+import type { DbBlogPostAuthor, DbBlogPostShallow, DbBlogPostWithAuthors, DbUser } from "@lib/database/types";
 
 function newPost(title:string, content:string, id:number, is_public:boolean,
 created_at:string, edited_at:string | null, tags:string[], slug:string | null,
-authors:(DbBlogPostAuthors & {user: DbUser | null})[] |null):DbBlogPostWithAuthors {
+authors:(DbBlogPostAuthor & {user: DbUser | null})[] |null):DbBlogPostWithAuthors {
   is_public = is_public ?? true;
   slug = slug ?? title.toLowerCase().replaceAll(" ", "-");
   authors = authors ?? []
