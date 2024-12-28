@@ -32,7 +32,7 @@ export function getAllBlogPostsShallow(): DbBlogPostShallow[] | undefined {
 type BlogPostParams = { yyyy: string; MM: string; dd: string; slug?: string };
 
 /** Searches for a blog post matching the specified route parameters. */
-export function getBlogPostFromParams(params: BlogPostParams): DbBlogPostWithAuthors {
+export function getBlogPostFromParams(params: BlogPostParams): DbBlogPostWithAuthors|null {
   const { yyyy, MM, dd, slug } = params;
 
   // Parse the date and ensure it's valid
