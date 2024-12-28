@@ -19,15 +19,13 @@ interface PageProps {
 export default async function BlogPostPage({ params: paramsPromise }: PageProps) {
   const params = await paramsPromise;
 
-  // Find the matching post (throw notFound on error)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const post = (await getBlogPostFromParams(supabase, params)) || notFound();
+  const post = (await getBlogPostFromParams(params)) || notFound();
 
   // If no slug is specified, redirect to URL with the slug
   if (!params.slug) redirect(getBlogPostUrl(post));
 
   // Get the latest blog posts (shallow) to display in the sidebar (throw notFound on error)
-  const recent = (await getAllBlogPostsShallow(supabase)) || notFound();
+  const recent = (await getAllBlogPostsShallow()) || notFound();
   const curIndex = recent.findIndex(p => p.id === post.id);
 
   // Configure and compile the markdown
@@ -54,9 +52,7 @@ export default async function BlogPostPage({ params: paramsPromise }: PageProps)
 }
 
 export async function generateStaticParams(): Promise<Awaited<PageProps["params"]>[]> {
-  // Get the latest blog posts (shallow) to pre-render (throw notFound on error)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const recent = (await getAllBlogPostsShallow(supabase)) || [];
+  const recent = getAllBlogPostsShallow() || [];
 
   // Map existing posts into params
   return recent.map(post => {
@@ -68,9 +64,7 @@ export async function generateStaticParams(): Promise<Awaited<PageProps["params"
 export async function generateMetadata({ params: paramsPromise }: PageProps): Promise<Metadata> {
   const params = await paramsPromise;
 
-  // Find the matching post (throw notFound on error)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const post = (await getBlogPostFromParams(supabase, params)) || notFound();
+  const post = (await getBlogPostFromParams(params)) || notFound();
 
   // If no slug is specified, redirect to URL with the slug
   if (!params.slug) redirect(getBlogPostUrl(post));

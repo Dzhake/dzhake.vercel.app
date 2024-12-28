@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { createServerSupabase } from "@lib/database/server";
 import { getAllBlogPostsShallow, getBlogPostById } from "@api/blog";
 import { compileMdx } from "@lib/mdx";
 import configurePlugins, { MdxPluginConfigs } from "@lib/mdx/configure-plugins";
@@ -11,10 +10,8 @@ import BlogPagination from "@components/Blog/BlogPagination";
 import BlogToc from "@components/Blog/BlogToc";
 
 export default async function BlogLandingPage() {
-  // Select all blog posts (shallow) and then the most recent one (throw notFound on errors)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const recent = (await getAllBlogPostsShallow(supabase)) || notFound();
-  const newest = (await getBlogPostById(supabase, recent![0].id)) || notFound();
+  const recent = getAllBlogPostsShallow() || notFound();
+  const newest = getBlogPostById(recent![0].id) || notFound();
 
   // Configure and compile the markdown
   const mdxOptions: MdxPluginConfigs = { embedSize: [480, 270] };
