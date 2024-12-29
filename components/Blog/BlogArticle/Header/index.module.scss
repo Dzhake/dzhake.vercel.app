@@ -10,13 +10,15 @@
   margin: 1rem 0 2rem;
   gap: 0.5rem 1rem;
 }
-.tagsRow {
+
+.datesAndTime {
   display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  margin-top: 0.5rem;
-  grid-column: span 2;
-  gap: 4px;
+  flex-flow: column;
+  gap: 0.25rem;
+}
+.lastEditedDate {
+  font-style: italic;
+  font-size: 0.7rem;
 }
 
 .authorsList {
@@ -24,7 +26,6 @@
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 0.5rem;
-  grid-row: span 2;
 }
 .author {
   display: flex;
@@ -46,6 +47,13 @@
   }
 }
 
+.tagsRow {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  grid-column: span 2;
+  gap: 4px;
+}
 .tagLink {
   color: var(--color-accent-lighter);
   padding: 4px 6px;

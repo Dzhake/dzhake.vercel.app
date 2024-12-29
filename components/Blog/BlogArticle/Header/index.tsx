@@ -18,10 +18,18 @@ export default function BlogArticleHeader({ post }: BlogArticleHeaderProps) {
         {post.title}
       </Heading>
       <div className={styles.headerInfo}>
-        <div>
-          <DateTime itemProp="datePublished" dateTime={post.created_at} format="date" />
-          {" ⋅ "}
-          <ReadingTime content={post.content} wordsPerMinute={200} />
+        <div className={styles.datesAndTime}>
+          <div>
+            <DateTime itemProp="datePublished" dateTime={post.created_at} format="date" />
+            {" ⋅ "}
+            <ReadingTime content={post.content} wordsPerMinute={200} />
+          </div>
+          {post.edited_at && (
+            <div className={styles.lastEditedDate}>
+              {"Last edited: "}
+              <DateTime itemProp="datePublished" dateTime={post.edited_at} format="date" />
+            </div>
+          )}
         </div>
         <div className={styles.authorsList}>
           {post.authors.map(author => (
