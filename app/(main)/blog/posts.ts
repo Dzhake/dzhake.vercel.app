@@ -20,7 +20,7 @@ authors:(DbBlogPostAuthor & {user: DbUser | null})[] |null):DbBlogPostWithAuthor
   };
 }
 
-//id: number, created_at:string, edited_at:string, title, content, is_public, tags:string[], slug:string,
+
 export const posts: DbBlogPostWithAuthors[] = [
   newPost("Making the site", "foisauooo!!-=fsa", 0, true, "2024-12-28T08:00:00Z", null, ["test", "website"], null, null),
 ];

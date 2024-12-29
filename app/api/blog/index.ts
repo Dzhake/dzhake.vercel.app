@@ -1,6 +1,6 @@
 import "server-only";
 import type { DbBlogPostShallow, DbBlogPostWithAuthors } from "@lib/database/types";
-import { posts } from "./posts";
+import { posts } from "../../(main)/blog/posts";
 export { getBlogPostSlug, getBlogPostUrl } from "./helper";
 
 
