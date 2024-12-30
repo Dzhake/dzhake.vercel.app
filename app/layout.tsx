@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { inter, JetBrains_Mono_NL } from "@app/fonts";
 import "./global.scss";
-
-const inter = Inter({ subsets: ["latin"] });
+import clsx from "clsx";
 
 export const metadata: Metadata = {
   title: "chsm.dev",
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={clsx(inter.className, JetBrains_Mono_NL.variable)}>{children}</body>
     </html>
   );
 }
