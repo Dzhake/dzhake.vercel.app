@@ -22,16 +22,22 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
       <footer className={styles.footer}>
         <div className={styles.footerLinks}>
           <div>
-            <h4>{"Information"}</h4>
+            <h4>{"Resources"}</h4>
             <Link href="/about">{"About chsm.dev"}</Link>
             <Link href="https://github.com/Chasmical/chsm.dev">{"GitHub repo"}</Link>
           </div>
           <div>
-            <h4>{"Subtext"}</h4>
+            <h4>{"Subtext extension"}</h4>
             {"Work-In-Progress"}
             {/* <Link href="/subtext">{"About Subtext"}</Link>
             <Link href="/subtext/packs/6">{"Sub packs"}</Link>
             <Link href="/subtext/collections/1">{"Sub collections"}</Link> */}
+          </div>
+          <div>
+            <h4>{"Other platforms"}</h4>
+            <Link href="https://discord.com/users/511178002277597185">{"Discord"}</Link>
+            <Link href="https://github.com/Chasmical">{"GitHub"}</Link>
+            <Link href="https://bsky.app/profile/chsm.dev">{"Bluesky"}</Link>
           </div>
           <div>
             <h4>{"Tools and utilities"}</h4>
