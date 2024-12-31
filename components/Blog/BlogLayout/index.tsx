@@ -10,10 +10,10 @@ export default function BlogLayout({ sidebar, article, toc }: BlogLayoutProps) {
   return (
     <div className={styles.container}>
       <aside className={styles.colSidebar}>{sidebar}</aside>
+      <div className={styles.colToc}>{toc}</div>
       <main className={styles.colContent} itemScope itemType="https://schema.org/Blog">
         {article}
       </main>
-      <div className={styles.colToc}>{toc}</div>
     </div>
   );
 }
