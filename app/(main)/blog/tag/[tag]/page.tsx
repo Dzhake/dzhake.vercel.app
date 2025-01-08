@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { createServerSupabase, type Supabase } from "@lib/database/server";
-import { getAllBlogPostsShallow, searchBlogPostsByTag } from "@api/blog";
+import { getAllBlogPostsShallow, searchBlogPostsByTag, getAllBlogPosts } from "@api/blog";
 import { getBlogPostSlug, truncateBlogPostContent } from "@api/blog/helper";
 import { configureMdx } from "@lib/mdx";
 import configurePlugins, { MdxPluginConfigs } from "@lib/mdx/configure-plugins";
@@ -20,7 +19,7 @@ interface PageProps {
 }
 
 /** Shared function for processing parameters and searching for posts */
-async function handleParamsShared(supabase: Supabase, props: PageProps) {
+async function handleParamsShared(props: PageProps) {
   // Parse params and search params
   const params = decodeUriParams(await props.params) || notFound();
   const searchParams = await props.searchParams;
@@ -32,18 +31,16 @@ async function handleParamsShared(supabase: Supabase, props: PageProps) {
   const tags = params.tag.split(/[,+]/);
   if (!tags.length) notFound();
 
-  const posts = (await searchBlogPostsByTag(supabase, tags, pageIndex, 10)) || notFound();
+  const posts = (await searchBlogPostsByTag(tags, pageIndex, 10)) || notFound();
   if (!posts.length) notFound();
 
   return { tags, posts };
 }
 
 export default async function BlogPostsByTagPage(props: PageProps) {
-  // Select all blog posts (shallow) for the sidebar (throw notFound on error)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const recentPosts = (await getAllBlogPostsShallow(supabase)) || notFound();
+  const recentPosts = (await getAllBlogPosts()) || notFound();
   // Handle the page's props and find matching props
-  const { tags, posts: matchedPosts } = await handleParamsShared(supabase, props);
+  const { tags, posts: matchedPosts } = await handleParamsShared(props);
 
   // Configure and compile the markdown
   const mdxOptions: MdxPluginConfigs = { embedSize: [480, 270] };
@@ -83,9 +80,7 @@ export default async function BlogPostsByTagPage(props: PageProps) {
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
-  // Handle the page's props and find matching props
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const { tags, posts: matchedPosts } = await handleParamsShared(supabase, props);
+  const { tags, posts: matchedPosts } = await handleParamsShared(props);
 
   const title = `Posts with ${joinList(tags, { prefix: "tag: ", join: ", " }).join("")}`;
   const description = [

@@ -11,8 +11,7 @@ export async function GET(_request: NextRequest, { params: paramsPromise }: Rout
   const params = await paramsPromise;
 
   // Find the matching post (throw notFound on error)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const post = (await getBlogPostFromParams(supabase, params)) || notFound();
+  const post = (await getBlogPostFromParams(params)) || notFound();
 
   // Redirect to path with slug
   redirect(getBlogPostUrl(post));

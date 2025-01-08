@@ -25,17 +25,17 @@ export function searchBlogPostsBySlug(range: Date | [start: Date, end: Date],  s
 }
 
 /** Searches for blog posts with the specified tags, within the specified page range, sorted from newest to oldest. */
-export async function searchBlogPostsByTag(
+export function searchBlogPostsByTag(
   tags: string[],
   pageIndex = 0,
   pageSize = 10,
 ): (DbBlogPostWithAuthors[] & { totalCount: number }) | null {
-  const data: DbBlogPostWithAuthors[] | null = getAllBlogPosts()?.filter(post => tags.forEach(tag => post.tags.includes(tag)));
-  return data ? Object.assign(data, { totalCount: count! }) : null;
+  const data: DbBlogPostWithAuthors[] | undefined = getAllBlogPosts()?.filter(post => tags.forEach(tag => post.tags.includes(tag)));
+  return data ? Object.assign(data, { totalCount: data.length }) : null;
 }
 
 /** Selects all blog posts, sorted from newest to oldest. */
-export async function getAllBlogPosts(): DbBlogPostWithAuthors[] | null {
+export function getAllBlogPosts(): DbBlogPostWithAuthors[] | null {
   return posts.slice().reverse();
 }
 /** Shallowly selects all blog posts, sorted from newest to oldest. */

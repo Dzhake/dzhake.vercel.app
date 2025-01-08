@@ -25,9 +25,7 @@ export default async function BlogPostPage() {
     components: configureComponents(),
   });
 
-  // Get the latest blog posts to display in the sidebar (throw notFound on error)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  let recent = (await getAllBlogPosts(supabase)) || notFound();
+  let recent = (await getAllBlogPosts()) || notFound();
 
   const post = {
     ...recent[0],
@@ -57,9 +55,7 @@ export default async function BlogPostPage() {
 export async function generateMetadata(): Promise<Metadata> {
   if (process.env.NODE_ENV !== "development") notFound();
 
-  // Get the latest blog posts to display in the sidebar (throw notFound on error)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const recent = (await getAllBlogPosts(supabase)) || notFound();
+  const recent = (await getAllBlogPosts()) || notFound();
 
   // Extract metadata from frontmatter
   type Frontmatter = { title?: string; description?: string };

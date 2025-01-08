@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getBlogPostSlug, truncateBlogPostContent } from "@api/blog/helper";
 import { createServerSupabase } from "@lib/database/server";
-import { getAllBlogPostsShallow, getBlogPostById } from "@api/blog";
-import { compileMdx } from "@lib/mdx";
+import { getAllBlogPostsShallow, getBlogPostById, getAllBlogPosts } from "@api/blog";
+import { compileMdx, configureMdx } from "@lib/mdx";
 import configurePlugins, { MdxPluginConfigs } from "@lib/mdx/configure-plugins";
 import configureComponents from "@lib/mdx/configure-components";
 import BlogLayout from "@components/Blog/BlogLayout";
@@ -10,8 +11,7 @@ import BlogSidebar from "@components/Blog/BlogSidebar";
 import BlogArticle from "@components/Blog/BlogArticle";
 
 export default async function BlogLandingPage() {
-  // Select all blog posts (shallow) and then the most recent one (throw notFound on errors)
-  const recentPosts = (await getAllBlogPostsShallow(supabase)) || notFound();
+  const recentPosts = (await getAllBlogPosts()) || notFound();
 
   // Configure and compile the markdown
   const mdxOptions: MdxPluginConfigs = { embedSize: [480, 270] };
@@ -42,9 +42,7 @@ export default async function BlogLandingPage() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  // Select all blog posts (throw notFound on error)
-  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
-  const recentPosts = (await getAllBlogPosts(supabase)) || notFound();
+  const recentPosts = (await getAllBlogPosts()) || notFound();
 
   const title = `Recent blog posts`;
   // TODO: Add a nice description for the blog
