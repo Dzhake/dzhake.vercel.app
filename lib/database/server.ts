@@ -4,6 +4,8 @@ import { createServerClient, type CookieMethodsServer } from "@supabase/ssr";
 import { createClient as createSupabaseClient, type SupabaseClientOptions } from "@supabase/supabase-js";
 import type { Database, Supabase } from "./types";
 
+export type { Database, Supabase };
+
 type ReadonlyRequestCookies = Awaited<ReturnType<typeof getCookies>>;
 type ClientOptions = SupabaseClientOptions<string & keyof Database> & { cookies: CookieMethodsServer };
 
@@ -15,8 +17,7 @@ function configureFetch(cookies: ReadonlyRequestCookies | null, next: NextFetchR
     },
   };
 
-  // TODO: caching and revalidation in development env don't work well with Supabase for some reason (remove when fixed)
-  if (process.env.NODE_ENV !== "development" && next) {
+  if (next) {
     options.global = { fetch: (input, init) => fetch(input, { ...init, next }) };
   } else {
     options.global = { fetch: (input, init) => fetch(input, { ...init, cache: "no-cache" }) };

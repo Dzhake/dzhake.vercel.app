@@ -11,13 +11,13 @@ export default function BlogToc({ toc }: { toc: TocHeadingData }) {
   );
 }
 
-function TocLinkList({ list }: { list: TocHeading[] }) {
+function TocLinkList({ list }: { list?: TocHeading[] }) {
   return (
     <ul className={styles.items}>
-      {list.map((item, index) => (
+      {list?.map((item, index) => (
         <li className={styles.item} key={item.id || index}>
           <TocLink item={item} />
-          {item.children && <TocLinkList list={item.children} />}
+          {(item.children || item.depth <= 2) && <TocLinkList list={item.children} />}
         </li>
       ))}
     </ul>

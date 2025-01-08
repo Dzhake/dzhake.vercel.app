@@ -1,10 +1,101 @@
-.code {
+.block, .inline {
+  background-color: #1e1e1e;
+}
+.inline {
   display: inline;
-  background-color: rgb(30, 30, 30);
+  font-size: 0.8125em;
+  line-height: 1.2em;
   border: 1px solid var(--color-border-lighter);
   border-radius: 0.375em;
   padding: 0.125em 0.25em;
-  font-size: 0.8125em;
   white-space: break-spaces;
-  line-height: 1.2em;
+}
+.block {
+  display: grid;
+  font-size: 13px;
+  line-height: 18px;
+  border: none;
+  padding: 14px 0;
+  white-space: pre;
+
+  cursor: text;
+  width: max-content;
+  min-width: 100%;
+
+  ::selection {
+    background-color: #007acc99;
+  }
+}
+
+// Add line numbers to code blocks
+.block > span {
+  counter-increment: line;
+  transition: background-color 0.2s;
+  padding-right: 1rem;
+
+  --line-num-offset: calc(30px + 7.8px * var(--line-num-digits, 2));
+
+  &::before {
+    display: inline-block;
+    content: counter(line);
+    margin: 0 20px 0 10px;
+    width: calc(7.8px * var(--line-num-digits, 2));
+    flex-shrink: 0;
+    text-align: right;
+    transition: color 0.2s;
+    color: #6e7681;
+  }
+}
+// Remove line numbers if <pre> has nonums class
+pre:global(.nonums) > .block > span {
+  padding-left: 1rem;
+  &::before { display: none; }
+  --line-num-offset: 16px;
+}
+
+.block > span {
+  &:hover {
+    background-color: #88888818;
+    &::before { color: #cccccc; }
+  }
+
+  &.highlight {
+    background-color: #88888830;
+    &:hover { background-color: #88888848; }
+  }
+
+  &.annotate {
+    counter-increment: none;
+    margin: 0.25rem auto 0.25rem calc(var(--line-num-offset) + var(--offset, 0) * 7.8px);
+    padding: 0.5rem !important;
+    border: 1px solid var(--color-border-lightest);
+    border-radius: 0.25rem;
+
+    &::before { display: none; }
+  }
+
+  &:is(.annotate-top, .annotate-mid, .annotate-bot) {
+    counter-increment: none;
+    &::before { display: none; }
+
+    width: calc(var(--width) * 7.8px);
+    margin: 0.25rem auto 0.25rem calc(var(--line-num-offset) + var(--offset, 0) * 7.8px);
+    padding: 0.25rem 0.5rem !important;
+    border: 1px solid var(--color-border-lightest);
+    border-radius: 0.25rem;
+  }
+  &:is(.annotate-top, .annotate-mid) {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+    padding-bottom: 0 !important;
+  }
+  &:is(.annotate-bot, .annotate-mid) {
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: 0;
+    padding-top: 0 !important;
+  }
 }

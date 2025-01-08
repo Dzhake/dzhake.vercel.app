@@ -19,6 +19,8 @@
     "immer": "^10.1.1",
     "js-yaml": "^4.1.0",
     "katex": "^0.16.18",
+    "lodash": "^4.17.21",
+    "lowlight": "^3.3.0",
     "mdast-util-to-string": "^4.0.0",
     "nanoid": "^5.0.9",
     "next": "15.1.2",
@@ -35,6 +37,7 @@
     "remark-math": "^6.0.0",
     "rsc-env": "^0.0.2",
     "server-only": "^0.0.1",
+    "shiki": "^1.26.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
     "vfile": "^6.0.3"
@@ -42,6 +45,7 @@
   "devDependencies": {
     "@types/hast": "^3.0.4",
     "@types/js-yaml": "^4.0.9",
+    "@types/lodash": "^4.17.13",
     "@types/mdast": "^4.0.4",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
@@ -54,7 +58,7 @@
     "eslint-plugin-unused-imports": "^3.2.0",
     "prettier": "^3.4.2",
     "raw-loader": "^4.0.2",
-    "supabase": "^2.1.1",
+    "supabase": "^2.2.1",
     "typescript": "^5.7.2",
     "typescript-plugin-css-modules": "^5.1.0"
   },

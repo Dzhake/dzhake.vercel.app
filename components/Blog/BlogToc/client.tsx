@@ -15,7 +15,7 @@ export default function BlogTocClient({ children }: React.PropsWithChildren) {
     const tocLinks = [...divRef.current.querySelectorAll<HTMLAnchorElement>("." + styles.link)];
     const headings = [...postContainer.querySelectorAll<HTMLHeadingElement>(":scope > :is(h1,h2,h3,h4,h5,h6)[id]")];
 
-    const threshold = window.innerHeight * 0.3;
+    const threshold = window.innerHeight * 0.35;
     const index = headings.findLastIndex(h => h.getBoundingClientRect().y < threshold);
 
     const newActiveLink = tocLinks[Math.max(index, 0)];

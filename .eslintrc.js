@@ -11,7 +11,7 @@ module.exports = {
     "no-constant-binary-expression": "warn", // a + b ?? c
 
     "@typescript-eslint/no-unused-vars": "off", // handled by "unused-imports" plugin
-    "unused-imports/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "unused-imports/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
     "unused-imports/no-unused-imports": "warn",
 
     "no-empty": "off", // annoying when writing new code
@@ -24,6 +24,7 @@ module.exports = {
     // interfaces allow to reduce huge mapped types to just an interface name in IDE tooltips
     "@typescript-eslint/no-unused-expressions": ["warn", { allowShortCircuit: true, allowTernary: true }],
     "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-namespace": ["warn", { allowDeclarations: true }],
   },
   // enable linting in /app/api/.private/ directory
   ignorePatterns: ["!/app/api/.private"],

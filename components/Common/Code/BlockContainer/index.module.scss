@@ -1,0 +1,27 @@
+.container {
+  position: relative;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.pre {
+  overflow-x: auto;
+  counter-reset: line;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--mono-font);
+  font-size: 13px;
+  font-weight: 500;
+}
+.fileIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
+}

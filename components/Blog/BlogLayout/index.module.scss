@@ -1,40 +1,53 @@
 .container {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: flex-end;
+  justify-content: center;
   width: 100%;
   max-width: 75vw;
   margin: 0 auto 2rem;
 }
 .colSidebar {
   flex: 0 0 20%;
+  min-width: 280px;
   max-width: 20%;
   padding-left: 1rem;
 }
 .colContent {
-  flex: 0 0 50%;
-  max-width: 50%;
-  padding: 0 2rem;
+  flex: 1 1 0;
+  padding: 2rem 2rem 0;
+  max-width: 792px;
+  overflow: auto;
 }
 .colToc {
-  flex: 0 0 25%;
-  max-width: 25%;
+  flex: 0 0 20%;
+  min-width: 280px;
+  max-width: 20%;
   padding-right: 1rem;
+  order: 3;
 }
 
-@media (max-width: 1140px) {
-  .colSidebar {
+@media (max-width: 1152px) {
+  .container {
+    justify-content: flex-end;
+  }
+  .container.hideTocFirst {
+    .colToc {
+      display: none;
+    }
+    .colSidebar {
+      order: 3;
+    }
+  }
+  .container:not(.hideTocFirst) .colSidebar {
     display: none;
   }
   .colContent {
-    flex: 0 0 70%;
-    max-width: 70%;
+    padding: 2rem 1.5rem 0;
   }
 }
-@media (max-width: 840px) {
-  .colContent {
-    flex: 0 0 95%;
-    max-width: 95%;
+@media (max-width: 768px) {
+  .colSidebar {
+    display: none;
   }
   .colToc {
     display: none;

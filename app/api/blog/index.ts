@@ -10,7 +10,7 @@ export function getBlogPostById(id: number): DbBlogPostWithAuthors | undefined {
 }
 
 /** Searches for blog posts within the specified date range, and, optionally, with the specified slug. */
-export function searchBlogPosts(range: Date | [start: Date, end: Date],  slug?: string): DbBlogPostWithAuthors[] | undefined {
+export function searchBlogPostsBySlug(range: Date | [start: Date, end: Date],  slug?: string): DbBlogPostWithAuthors[] | undefined {
   // If not an array, turn Date into a one-day range
   const [start, end] = Array.isArray(range) ? range : [range, new Date(+range + 24 * 3600 * 1000)];
 
@@ -24,6 +24,20 @@ export function searchBlogPosts(range: Date | [start: Date, end: Date],  slug?: 
   return found;
 }
 
+/** Searches for blog posts with the specified tags, within the specified page range, sorted from newest to oldest. */
+export async function searchBlogPostsByTag(
+  tags: string[],
+  pageIndex = 0,
+  pageSize = 10,
+): (DbBlogPostWithAuthors[] & { totalCount: number }) | null {
+  const data: DbBlogPostWithAuthors[] | null = getAllBlogPosts()?.filter(post => tags.forEach(tag => post.tags.includes(tag)));
+  return data ? Object.assign(data, { totalCount: count! }) : null;
+}
+
+/** Selects all blog posts, sorted from newest to oldest. */
+export async function getAllBlogPosts(): DbBlogPostWithAuthors[] | null {
+  return posts.slice().reverse();
+}
 /** Shallowly selects all blog posts, sorted from newest to oldest. */
 export function getAllBlogPostsShallow(): DbBlogPostShallow[] | undefined {
   return posts.slice().reverse();
@@ -40,5 +54,5 @@ export function getBlogPostFromParams(params: BlogPostParams): DbBlogPostWithAut
   if (Number.isNaN(+date)) return null;
 
   // Select the matching post
-  return (searchBlogPosts(date, slug))?.[0] ?? null;
+  return (searchBlogPostsBySlug(date, slug))?.[0] ?? null;
 }

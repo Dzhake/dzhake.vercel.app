@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { createServerSupabase } from "@lib/database/server";
 import { getAllBlogPostsShallow, getBlogPostById } from "@api/blog";
 import { compileMdx } from "@lib/mdx";
 import configurePlugins, { MdxPluginConfigs } from "@lib/mdx/configure-plugins";
@@ -6,32 +8,67 @@ import configureComponents from "@lib/mdx/configure-components";
 import BlogLayout from "@components/Blog/BlogLayout";
 import BlogSidebar from "@components/Blog/BlogSidebar";
 import BlogArticle from "@components/Blog/BlogArticle";
-import BlogPagination from "@components/Blog/BlogPagination";
-import BlogToc from "@components/Blog/BlogToc";
 
 export default async function BlogLandingPage() {
-  const recent = getAllBlogPostsShallow() || notFound();
-  const newest = getBlogPostById(recent![0].id) || notFound();
+  // Select all blog posts (shallow) and then the most recent one (throw notFound on errors)
+  const recentPosts = (await getAllBlogPostsShallow(supabase)) || notFound();
 
   // Configure and compile the markdown
   const mdxOptions: MdxPluginConfigs = { embedSize: [480, 270] };
 
-  const { content } = await compileMdx(newest.content, {
+  const mdx = configureMdx({
     format: "mdx",
     ...configurePlugins(mdxOptions),
     components: configureComponents(),
   });
 
+  const truncatedMdxResults = await Promise.all(
+    recentPosts.map(post => mdx.compile(truncateBlogPostContent(post.content))),
+  );
+
   return (
     <BlogLayout
-      sidebar={<BlogSidebar posts={recent} />}
+      sidebar={<BlogSidebar posts={recentPosts} />}
       article={
         <>
-          <BlogArticle mdxContent={content} post={newest} />
-          <BlogPagination cur={newest} prev={recent[1]} />
+          {recentPosts.map((post, i) => {
+            return <BlogArticle key={post.id} post={post} mdxContent={truncatedMdxResults[i].content} readMore />;
+          })}
         </>
       }
-      toc={<BlogToc toc={mdxOptions.toc!} />}
+      toc={null}
     />
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  // Select all blog posts (throw notFound on error)
+  const supabase = createServerSupabase("anonymous", { revalidate: 300 });
+  const recentPosts = (await getAllBlogPosts(supabase)) || notFound();
+
+  const title = `Recent blog posts`;
+  // TODO: Add a nice description for the blog
+  const description = [
+    `A total of ${recentPosts.length} blog posts:`,
+    ...recentPosts.map(p => `${getBlogPostSlug(p).split("/").slice(0, 3).join("-")}: ${p.title}`),
+  ].join("\n");
+
+  return {
+    title,
+    description,
+
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      locale: "en",
+      images: [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [],
+    },
+  };
 }
